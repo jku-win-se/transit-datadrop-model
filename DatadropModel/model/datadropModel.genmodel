@@ -9,8 +9,41 @@
   <foreignModel>datadropModel.ecore</foreignModel>
   <testsDirectory xsi:nil="true"/>
   <genPackages prefix="DatadropModel" disposableProviderFactory="true" ecorePackage="datadropModel.ecore#/">
+    <genClasses ecoreClass="datadropModel.ecore#//Project">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datadropModel.ecore#//Project/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datadropModel.ecore#//Project/project_id"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference datadropModel.ecore#//Project/repositories"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference datadropModel.ecore#//Project/data_drop_repository"/>
+    </genClasses>
+    <genClasses ecoreClass="datadropModel.ecore#//Repository">
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference datadropModel.ecore#//Repository/artifact"/>
+    </genClasses>
     <genClasses ecoreClass="datadropModel.ecore#//Artifact">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datadropModel.ecore#//Artifact/type"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datadropModel.ecore#//Artifact/name"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference datadropModel.ecore#//Artifact/files"/>
+    </genClasses>
+    <genClasses ecoreClass="datadropModel.ecore#//File">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datadropModel.ecore#//File/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datadropModel.ecore#//File/extension"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datadropModel.ecore#//File/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datadropModel.ecore#//File/mandatory"/>
+    </genClasses>
+    <genClasses ecoreClass="datadropModel.ecore#//Credentials">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datadropModel.ecore#//Credentials/auth_token"/>
+    </genClasses>
+    <genClasses ecoreClass="datadropModel.ecore#//Profile">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datadropModel.ecore#//Profile/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference datadropModel.ecore#//Profile/mandatory_files"/>
+    </genClasses>
+    <genClasses ecoreClass="datadropModel.ecore#//RepositoryInterface">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datadropModel.ecore#//RepositoryInterface/repository_id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datadropModel.ecore#//RepositoryInterface/repository_name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datadropModel.ecore#//RepositoryInterface/remote_url"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference datadropModel.ecore#//RepositoryInterface/credentials"/>
+    </genClasses>
+    <genClasses ecoreClass="datadropModel.ecore#//DataDropRepository">
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference datadropModel.ecore#//DataDropRepository/profile"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

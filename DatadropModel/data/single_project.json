@@ -1,0 +1,78 @@
+{
+		"description": "Test-Projekt",
+		"project_id": "project1",
+		"repositories": [{
+				"repository_id": "rep-1",
+				"repository_name": "CAD-Files",
+				"artifact": {
+					"type": "CAD-Tunnel",
+					"name": "CAD Tunnel",
+					"files": [{
+						"name": "file1",
+						"extension": "xml",
+						"description": "file1 description",
+						"mandatory": false
+					}, {
+						"name": "file2",
+						"extension": "txt",
+						"description": "file2 description",
+						"mandatory": true
+
+					}
+				]
+				},
+				"remote_url": "https://github.com/xxxx",
+				"credentials": {
+					"auth_token": "adasdadsadad"
+				}
+				
+			}, {
+				"repository_id": "rep-2",
+				"repository_name": "Files",
+				"artifact": {
+					"type": "2D-Plan",
+					"name": "2D Plan",
+					"files": [
+						{
+							"name": "file1",
+							"extension": "xml",
+							"description": "file1 description",
+							"mandatory": false
+
+							
+						}
+					]
+				},
+				
+				"remote_url": "https://github.com/asd",
+				"credentials": {
+					"auth_token": "adasdadsadad"
+				}
+			}
+		],
+		"data_drop_repository": {
+			"repository_id": "data-drop",
+			"repository_name": "Drop",
+			"profiles": [
+				{
+					"name":"Planung",
+					"mandatory_files": [
+						{
+							"type":"CAD-Tunnel",
+							"file":"file2",
+							"extension":"txt"
+						},
+						{
+							"type":"2D-Plan",
+							"file":"file1",
+							"extension":"xml"
+						}
+					]
+				}
+			],
+			"remote_url": "https://github.com/xxxx",
+			"credentials": {
+				"auth_token": "adasda"
+			}
+		}
+}

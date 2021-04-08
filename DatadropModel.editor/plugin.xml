@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated datadropModel -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="datadropModel.presentation.DatadropModelModelWizardID"
+            name="%_UI_DatadropModelModelWizard_label"
+            class="datadropModel.presentation.DatadropModelModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/DatadropModelModelFile.gif">
+         <description>%_UI_DatadropModelModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated datadropModel -->
+      <editor
+            id="datadropModel.presentation.DatadropModelEditorID"
+            name="%_UI_DatadropModelEditor_label"
+            icon="icons/full/obj16/DatadropModelModelFile.gif"
+            extensions="datadropmodel"
+            class="datadropModel.presentation.DatadropModelEditor"
+            contributorClass="datadropModel.presentation.DatadropModelActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>

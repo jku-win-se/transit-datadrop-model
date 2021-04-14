@@ -154,6 +154,7 @@ public class RepositoryItemProvider extends ItemProviderAdapter implements IEdit
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
+			childrenFeatures.add(DatadropModelPackage.Literals.REPOSITORY_INTERFACE__CREDENTIALS);
 			childrenFeatures.add(DatadropModelPackage.Literals.REPOSITORY__ARTIFACT);
 		}
 		return childrenFeatures;
@@ -223,6 +224,7 @@ public class RepositoryItemProvider extends ItemProviderAdapter implements IEdit
 		case DatadropModelPackage.REPOSITORY__REMOTE_URL:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
+		case DatadropModelPackage.REPOSITORY__CREDENTIALS:
 		case DatadropModelPackage.REPOSITORY__ARTIFACT:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
@@ -240,6 +242,9 @@ public class RepositoryItemProvider extends ItemProviderAdapter implements IEdit
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add(createChildParameter(DatadropModelPackage.Literals.REPOSITORY_INTERFACE__CREDENTIALS,
+				DatadropModelFactory.eINSTANCE.createCredentials()));
 
 		newChildDescriptors.add(createChildParameter(DatadropModelPackage.Literals.REPOSITORY__ARTIFACT,
 				DatadropModelFactory.eINSTANCE.createArtifact()));

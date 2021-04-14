@@ -102,7 +102,7 @@ public class DataDropRepositoryImpl extends MinimalEObjectImpl.Container impleme
 	protected String remote_url = REMOTE_URL_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getCredentials() <em>Credentials</em>}' reference.
+	 * The cached value of the '{@link #getCredentials() <em>Credentials</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getCredentials()
@@ -212,15 +212,6 @@ public class DataDropRepositoryImpl extends MinimalEObjectImpl.Container impleme
 	 * @generated
 	 */
 	public Credentials getCredentials() {
-		if (credentials != null && credentials.eIsProxy()) {
-			InternalEObject oldCredentials = (InternalEObject) credentials;
-			credentials = (Credentials) eResolveProxy(oldCredentials);
-			if (credentials != oldCredentials) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							DatadropModelPackage.DATA_DROP_REPOSITORY__CREDENTIALS, oldCredentials, credentials));
-			}
-		}
 		return credentials;
 	}
 
@@ -229,8 +220,18 @@ public class DataDropRepositoryImpl extends MinimalEObjectImpl.Container impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Credentials basicGetCredentials() {
-		return credentials;
+	public NotificationChain basicSetCredentials(Credentials newCredentials, NotificationChain msgs) {
+		Credentials oldCredentials = credentials;
+		credentials = newCredentials;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					DatadropModelPackage.DATA_DROP_REPOSITORY__CREDENTIALS, oldCredentials, newCredentials);
+			if (msgs == null)
+				msgs = notification;
+			else
+				msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -239,11 +240,20 @@ public class DataDropRepositoryImpl extends MinimalEObjectImpl.Container impleme
 	 * @generated
 	 */
 	public void setCredentials(Credentials newCredentials) {
-		Credentials oldCredentials = credentials;
-		credentials = newCredentials;
-		if (eNotificationRequired())
+		if (newCredentials != credentials) {
+			NotificationChain msgs = null;
+			if (credentials != null)
+				msgs = ((InternalEObject) credentials).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - DatadropModelPackage.DATA_DROP_REPOSITORY__CREDENTIALS, null, msgs);
+			if (newCredentials != null)
+				msgs = ((InternalEObject) newCredentials).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - DatadropModelPackage.DATA_DROP_REPOSITORY__CREDENTIALS, null, msgs);
+			msgs = basicSetCredentials(newCredentials, msgs);
+			if (msgs != null)
+				msgs.dispatch();
+		} else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
-					DatadropModelPackage.DATA_DROP_REPOSITORY__CREDENTIALS, oldCredentials, credentials));
+					DatadropModelPackage.DATA_DROP_REPOSITORY__CREDENTIALS, newCredentials, newCredentials));
 	}
 
 	/**
@@ -267,6 +277,8 @@ public class DataDropRepositoryImpl extends MinimalEObjectImpl.Container impleme
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+		case DatadropModelPackage.DATA_DROP_REPOSITORY__CREDENTIALS:
+			return basicSetCredentials(null, msgs);
 		case DatadropModelPackage.DATA_DROP_REPOSITORY__PROFILE:
 			return ((InternalEList<?>) getProfile()).basicRemove(otherEnd, msgs);
 		}
@@ -288,9 +300,7 @@ public class DataDropRepositoryImpl extends MinimalEObjectImpl.Container impleme
 		case DatadropModelPackage.DATA_DROP_REPOSITORY__REMOTE_URL:
 			return getRemote_url();
 		case DatadropModelPackage.DATA_DROP_REPOSITORY__CREDENTIALS:
-			if (resolve)
-				return getCredentials();
-			return basicGetCredentials();
+			return getCredentials();
 		case DatadropModelPackage.DATA_DROP_REPOSITORY__PROFILE:
 			return getProfile();
 		}

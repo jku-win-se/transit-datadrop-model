@@ -213,9 +213,6 @@ public class RepositorySupertypeItemProvider extends RepositoryItemProvider {
 		case DatadropModelPackage.REPOSITORY_INTERFACE__REMOTE_URL:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
-		case DatadropModelPackage.REPOSITORY_INTERFACE__PROFILE:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
-			return;
 		}
 		super.notifyChanged(notification);
 	}

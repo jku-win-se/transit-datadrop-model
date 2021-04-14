@@ -154,6 +154,7 @@ public class DataDropRepositoryItemProvider extends ItemProviderAdapter implemen
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
+			childrenFeatures.add(DatadropModelPackage.Literals.REPOSITORY_INTERFACE__CREDENTIALS);
 			childrenFeatures.add(DatadropModelPackage.Literals.DATA_DROP_REPOSITORY__PROFILE);
 		}
 		return childrenFeatures;
@@ -223,6 +224,7 @@ public class DataDropRepositoryItemProvider extends ItemProviderAdapter implemen
 		case DatadropModelPackage.DATA_DROP_REPOSITORY__REMOTE_URL:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
+		case DatadropModelPackage.DATA_DROP_REPOSITORY__CREDENTIALS:
 		case DatadropModelPackage.DATA_DROP_REPOSITORY__PROFILE:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
@@ -240,6 +242,9 @@ public class DataDropRepositoryItemProvider extends ItemProviderAdapter implemen
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add(createChildParameter(DatadropModelPackage.Literals.REPOSITORY_INTERFACE__CREDENTIALS,
+				DatadropModelFactory.eINSTANCE.createCredentials()));
 
 		newChildDescriptors.add(createChildParameter(DatadropModelPackage.Literals.DATA_DROP_REPOSITORY__PROFILE,
 				DatadropModelFactory.eINSTANCE.createProfile()));

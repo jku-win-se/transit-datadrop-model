@@ -158,7 +158,7 @@ public interface DatadropModelPackage extends EPackage {
 	int REPOSITORY_INTERFACE__REMOTE_URL = 2;
 
 	/**
-	 * The feature id for the '<em><b>Credentials</b></em>' reference.
+	 * The feature id for the '<em><b>Credentials</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -222,7 +222,7 @@ public interface DatadropModelPackage extends EPackage {
 	int REPOSITORY__REMOTE_URL = REPOSITORY_INTERFACE__REMOTE_URL;
 
 	/**
-	 * The feature id for the '<em><b>Credentials</b></em>' reference.
+	 * The feature id for the '<em><b>Credentials</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -497,7 +497,7 @@ public interface DatadropModelPackage extends EPackage {
 	int DATA_DROP_REPOSITORY__REMOTE_URL = REPOSITORY_INTERFACE__REMOTE_URL;
 
 	/**
-	 * The feature id for the '<em><b>Credentials</b></em>' reference.
+	 * The feature id for the '<em><b>Credentials</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -801,10 +801,10 @@ public interface DatadropModelPackage extends EPackage {
 	EAttribute getRepositoryInterface_Remote_url();
 
 	/**
-	 * Returns the meta object for the reference '{@link datadropModel.RepositoryInterface#getCredentials <em>Credentials</em>}'.
+	 * Returns the meta object for the containment reference '{@link datadropModel.RepositoryInterface#getCredentials <em>Credentials</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Credentials</em>'.
+	 * @return the meta object for the containment reference '<em>Credentials</em>'.
 	 * @see datadropModel.RepositoryInterface#getCredentials()
 	 * @see #getRepositoryInterface()
 	 * @generated
@@ -1070,7 +1070,7 @@ public interface DatadropModelPackage extends EPackage {
 		EAttribute REPOSITORY_INTERFACE__REMOTE_URL = eINSTANCE.getRepositoryInterface_Remote_url();
 
 		/**
-		 * The meta object literal for the '<em><b>Credentials</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Credentials</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

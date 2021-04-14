@@ -39,7 +39,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="repository_id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="repository_name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="remote_url" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="credentials" eType="#//Credentials"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="credentials" eType="#//Credentials"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DataDropRepository" eSuperTypes="#//RepositoryInterface">
     <eStructuralFeatures xsi:type="ecore:EReference" name="profile" upperBound="-1"

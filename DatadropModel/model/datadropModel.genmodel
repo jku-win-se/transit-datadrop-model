@@ -40,7 +40,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datadropModel.ecore#//RepositoryInterface/repository_id"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datadropModel.ecore#//RepositoryInterface/repository_name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datadropModel.ecore#//RepositoryInterface/remote_url"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference datadropModel.ecore#//RepositoryInterface/credentials"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference datadropModel.ecore#//RepositoryInterface/credentials"/>
     </genClasses>
     <genClasses ecoreClass="datadropModel.ecore#//DataDropRepository">
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference datadropModel.ecore#//DataDropRepository/profile"/>

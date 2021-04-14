@@ -91,22 +91,22 @@ public interface RepositoryInterface extends EObject {
 	void setRemote_url(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Credentials</b></em>' reference.
+	 * Returns the value of the '<em><b>Credentials</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Credentials</em>' reference.
+	 * @return the value of the '<em>Credentials</em>' containment reference.
 	 * @see #setCredentials(Credentials)
 	 * @see datadropModel.DatadropModelPackage#getRepositoryInterface_Credentials()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
 	Credentials getCredentials();
 
 	/**
-	 * Sets the value of the '{@link datadropModel.RepositoryInterface#getCredentials <em>Credentials</em>}' reference.
+	 * Sets the value of the '{@link datadropModel.RepositoryInterface#getCredentials <em>Credentials</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Credentials</em>' reference.
+	 * @param value the new value of the '<em>Credentials</em>' containment reference.
 	 * @see #getCredentials()
 	 * @generated
 	 */

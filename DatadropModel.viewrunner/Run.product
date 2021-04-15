@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.5"?>
+
+<product name="DatadropModel Viewer" uid="Run" id="DatadropModel.viewrunner.product" application="org.eclipse.e4.ui.workbench.swt.E4Application" version="1.25.0.qualifier" useFeatures="true" includeLaunchers="true">
+
+
+   <configIni use="default">
+   </configIni>
+
+   <launcherArgs>
+      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
+      </vmArgsMac>
+   </launcherArgs>
+
+   <windowImages/>
+
+
+   <launcher>
+      <win useIco="false">
+         <bmp/>
+      </win>
+   </launcher>
+
+
+   <vm>
+   </vm>
+
+
+   <plugins>
+   </plugins>
+
+   <features>
+      <feature id="DatadropModel.feature"/>
+      <feature id="org.eclipse.e4.rcp"/>
+      <feature id="org.eclipse.emf.ecp.emfforms.runtime.feature"/>
+      <feature id="org.eclipse.emf.common"/>
+      <feature id="org.eclipse.emf.common.ui"/>
+      <feature id="org.eclipse.emf.databinding"/>
+      <feature id="org.eclipse.emf.databinding.edit"/>
+      <feature id="org.eclipse.emf.ecore"/>
+      <feature id="org.eclipse.emf.ecore.edit"/>
+      <feature id="org.eclipse.emf.edit"/>
+      <feature id="org.eclipse.emf.edit.ui"/>
+      <feature id="org.eclipse.emf.ecp.view.treemasterdetail.feature" installMode="root"/>
+      <feature id="org.eclipse.emf.ecp.view.template.feature" installMode="root"/>
+      <feature id="org.eclipse.emf.ecp.view.label.feature" installMode="root"/>
+      <feature id="org.eclipse.emfforms.core.bazaar.feature" installMode="root"/>
+      <feature id="org.eclipse.emfforms.view.annotation.feature" installMode="root"/>
+      <feature id="org.eclipse.emf.ecp.view.table.feature" installMode="root"/>
+      <feature id="org.eclipse.emf.ecp.view.categorization.feature" installMode="root"/>
+      <feature id="org.eclipse.emf.ecp.view.group.feature" installMode="root"/>
+      <feature id="org.eclipse.emf.ecp.view.vertical.feature" installMode="root"/>
+      <feature id="org.eclipse.emf.ecp.view.custom.feature" installMode="root"/>
+      <feature id="org.eclipse.emf.ecp.view.stack.feature" installMode="root"/>
+      <feature id="org.eclipse.emf.ecp.view.compoundcontrol.feature" installMode="root"/>
+      <feature id="org.eclipse.emf.ecp.view.validation.feature" installMode="root"/>
+      <feature id="org.eclipse.emf.ecp.view.rule.feature" installMode="root"/>
+      <feature id="org.eclipse.emf.ecp.view.unset.feature" installMode="root"/>
+      <feature id="org.eclipse.emf.ecp.view.horizontal.feature" installMode="root"/>
+      <feature id="org.eclipse.emf.ecp.viewmodel.feature" installMode="root"/>
+      <feature id="org.eclipse.rcp" installMode="root"/>
+   </features>
+
+
+   <preferencesInfo>
+      <targetfile overwrite="false"/>
+   </preferencesInfo>
+
+   <cssInfo>
+   </cssInfo>
+
+</product>

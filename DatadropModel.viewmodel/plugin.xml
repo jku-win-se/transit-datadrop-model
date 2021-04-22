@@ -1,10 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?eclipse version="3.4"?>
-<plugin>
-   <extension
-         point="org.eclipse.emf.ecp.view.model.provider.xmi.file">
-<file filePath="viewmodels/Project.view"/>
-
-   </extension>
-
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?eclipse version="3.4"?><plugin>
+       
+    <extension point="org.eclipse.emf.ecp.view.model.provider.xmi.file">
+        
+        <file filePath="viewmodels/Project.view"/>
+           
+    </extension>
+    
+    <extension point="org.eclipse.emf.ecp.view.template">
+        <viewTemplate xmi="editor.template"/>
+    </extension>
 </plugin>

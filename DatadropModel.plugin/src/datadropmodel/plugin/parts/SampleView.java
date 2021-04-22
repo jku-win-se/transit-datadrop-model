@@ -1,5 +1,7 @@
 package datadropmodel.plugin.parts;
 
+import java.util.logging.Logger;
+
 import javax.annotation.PostConstruct;
 
 import org.eclipse.emf.ecore.EClass;
@@ -15,7 +17,10 @@ import datadropModel.DatadropModelPackage;
 
 public class SampleView {
 
+	private static final Logger LOGGER = Logger.getLogger(SampleView.class.getName());
+
 	private EObject getDummyEObject() {
+		LOGGER.info("getting dummy object");
 		final EClass eClass = DatadropModelPackage.eINSTANCE.getProject();
 		return EcoreUtil.create(eClass);
 	}
@@ -27,7 +32,8 @@ public class SampleView {
 	 */
 	@PostConstruct
 	public void createComposite(Composite parent) {
-		System.out.println("#####################Test#####################");
+		LOGGER.info("#############################################################");
+		LOGGER.info("creating composite paraent");
 		final EObject dummyObject = getDummyEObject();
 		try {
 			final Composite content = new Composite(parent, SWT.NONE);
@@ -37,6 +43,7 @@ public class SampleView {
 			ECPSWTViewRenderer.INSTANCE.render(content, dummyObject);
 			content.layout();
 		} catch (final ECPRendererException e) {
+			LOGGER.severe("failed to create composite parent");
 			e.printStackTrace();
 		}
 		parent.layout();

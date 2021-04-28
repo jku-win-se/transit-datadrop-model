@@ -14,7 +14,12 @@ Require-Bundle: javax.inject,
  DatadropModel,
  org.eclipse.emf.ecp.ui.view.swt,
  DatadropModel.edit;bundle-version="1.0.0",
- DatadropModel.viewmodel;bundle-version="1.0.0"
+ DatadropModel.viewmodel;bundle-version="1.0.0",
+ com.fasterxml.jackson.core.jackson-annotations;bundle-version="2.12.1",
+ com.fasterxml.jackson.core.jackson-core;bundle-version="2.12.1",
+ com.fasterxml.jackson.core.jackson-databind;bundle-version="2.12.1",
+ org.emfjson.jackson;bundle-version="0.13.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-15
 Import-Package: javax.annotation;version="1.2.0"
 Automatic-Module-Name: DatadropModel.plugin
+Bundle-ClassPath: .

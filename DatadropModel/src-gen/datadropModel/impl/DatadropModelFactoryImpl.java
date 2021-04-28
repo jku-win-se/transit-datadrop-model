@@ -160,7 +160,7 @@ public class DatadropModelFactoryImpl extends EFactoryImpl implements DatadropMo
 	 * @deprecated
 	 * @generated
 	 */
-	@Deprecated
+	//@Deprecated
 	public static DatadropModelPackage getPackage() {
 		return DatadropModelPackage.eINSTANCE;
 	}

@@ -29,6 +29,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.DirectoryDialog;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.emfjson.jackson.resource.JsonResourceFactory;
@@ -130,7 +131,6 @@ public class SampleView {
 			final Button exportToXMIButton = new Button(this.content, SWT.PUSH);
 			exportToXMIButton.setLayoutData(GD_CENTERED);
 			exportToXMIButton.setText("    Export    ");
-			this.content.layout(true);
 
 			// export button click event
 			exportToXMIButton.addSelectionListener(new SelectionAdapter() {
@@ -145,6 +145,34 @@ public class SampleView {
 					}
 				}
 			});
+
+			// input directory label
+			Label inputDir = new Label(this.content, SWT.NONE);
+			inputDir.setText("Select input xmi file");
+
+			// add import button
+			final Button importXMIButton = new Button(this.content, SWT.PUSH);
+			importXMIButton.setLayoutData(GD_CENTERED);
+			importXMIButton.setText("    Import...    ");
+
+			// import button click event
+			importXMIButton.addSelectionListener(new SelectionAdapter() {
+
+				@Override
+				public void widgetSelected(SelectionEvent arg0) {
+					// TODO: create file import browser
+					Shell tempShell = new Shell(content.getShell());
+					FileDialog fileDialog = new FileDialog(tempShell);
+					fileDialog.setText("Select XMI file to import");
+					String fileImportPath = fileDialog.open();
+					System.out.println(fileImportPath);
+					// TODO: convert xmi file to EObject
+					// https://stackoverflow.com/questions/26944174/load-emf-model-instance-from-xmi-file
+				}
+			});
+
+			this.content.layout(true);
+
 		} catch (final ECPRendererException e) {
 			LOGGER.severe("failed to create composite parent");
 			e.printStackTrace();

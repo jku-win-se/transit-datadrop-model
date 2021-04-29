@@ -8,7 +8,4 @@
            
     </extension>
     
-    <extension point="org.eclipse.emf.ecp.view.template">
-        <viewTemplate xmi="new_file.template"/>
-    </extension>
 </plugin>

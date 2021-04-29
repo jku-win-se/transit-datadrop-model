@@ -20,6 +20,8 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.emf.ecp.ui.view.ECPRendererException;
 import org.eclipse.emf.ecp.ui.view.swt.ECPSWTViewRenderer;
+import org.eclipse.emf.edit.domain.EditingDomain;
+import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -36,6 +38,11 @@ import org.emfjson.jackson.resource.JsonResourceFactory;
 
 import datadropModel.DatadropModelPackage;
 
+/***
+ * 
+ * @author Marco
+ *
+ */
 public class SampleView {
 
 	private static final Logger LOGGER = Util.getLogger(SampleView.class.getName());
@@ -49,6 +56,7 @@ public class SampleView {
 	private Composite content;
 	private String outputDirPath;
 	private Label dirLabel;
+	private EObject ecoreViewModelObj;
 
 	private EObject getDummyEObject() {
 		LOGGER.fine("getting dummy object");
@@ -66,120 +74,167 @@ public class SampleView {
 		LOGGER.info("###################################################################");
 		LOGGER.info("#######################    Starting View    #######################");
 		LOGGER.info("###################################################################");
-		LOGGER.fine("creating composite paraent");
-		final EObject ecoreViewModelObj = getDummyEObject();
-		try {
-			this.content = new Composite(parent, SWT.NONE);
 
-			// create window layout
-			this.content.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_WHITE));
-			GridData gridData = new GridData(GridData.FILL, GridData.FILL, true, false);
-			this.content.setLayoutData(gridData);
-			GridLayout windowLayout = new GridLayout(1, false);
-			windowLayout.marginBottom = 10;
-			this.content.setLayout(windowLayout);
+		this.content = new Composite(parent, SWT.NONE);
 
-			// render ecore viewmodel
-			ECPSWTViewRenderer.INSTANCE.render(this.content, ecoreViewModelObj);
+		// create window layout
+		this.content.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_WHITE));
+		GridData gridData = new GridData(GridData.FILL, GridData.FILL, true, false);
+		this.content.setLayoutData(gridData);
+		GridLayout windowLayout = new GridLayout(1, false);
+		windowLayout.marginBottom = 10;
+		this.content.setLayout(windowLayout);
 
-			//////////////////////////////////////////
-			///////// Additional UI Elements /////////
-			//////////////////////////////////////////
+		//////////////////////////////////////////
+		///////// Additional UI Elements /////////
+		//////////////////////////////////////////
 
-			// output directory label
-			this.dirLabel = new Label(this.content, SWT.NONE);
-			this.dirLabel.setText(NO_OUTPUT_DIR_STRING);
-			this.dirLabel.setLayoutData(GD_FILLED);
+		// input directory label
+		Label inputDir = new Label(this.content, SWT.NONE);
+		inputDir.setText("Select input xmi file");
 
-			// browse button for output directory
-			final Button btnBrowse = new Button(this.content, SWT.NONE);
-			btnBrowse.setText("    Browse...    ");
-			btnBrowse.setLayoutData(GD_CENTERED);
-			this.content.layout(true);
+		// add import button
+		final Button importXMIButton = new Button(this.content, SWT.PUSH);
+		importXMIButton.setLayoutData(GD_CENTERED);
+		importXMIButton.setText("    Import...    ");
 
-			// called when browse button clicked
-			btnBrowse.addListener(SWT.Selection, e -> {
-				// open dialog and save directory path
-				Shell tempShell = new Shell(this.content.getShell());
-				DirectoryDialog dirDialog = new DirectoryDialog(tempShell);
-				dirDialog.setText("Select the parent directory for tools");
-				outputDirPath = dirDialog.open();
-				LOGGER.info("Chosen output directory: " + outputDirPath);
+		// import button click event
+		importXMIButton.addSelectionListener(new SelectionAdapter() {
 
-				// update label
-				this.dirLabel.setText(OUTPUT_DIR_STRING_PREFIX + outputDirPath);
-				while (!tempShell.isDisposed()) {
-					if (!tempShell.getDisplay().readAndDispatch()) {
-						tempShell.getDisplay().sleep();
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				LOGGER.info("-----importing from XMI-----");
+				// file import dialog
+				Shell tempShell = new Shell(content.getShell());
+				FileDialog fileDialog = new FileDialog(tempShell);
+				fileDialog.setText("Select XMI file to import");
+				String fileImportPath = fileDialog.open();
+
+				if (fileImportPath.isBlank() || fileImportPath.isEmpty()) {
+					LOGGER.info("Fileimport path is empty");
+				} else {
+					LOGGER.info("Importing file:" + fileImportPath);
+					ecoreViewModelObj = importModelFromPath(fileImportPath);
+					try {
+						// render ecore viewmodel
+						ECPSWTViewRenderer.INSTANCE.render(content, ecoreViewModelObj);
+					} catch (final ECPRendererException e) {
+						LOGGER.severe("failed to create composite parent");
+						e.printStackTrace();
 					}
+					removeStartMenu();
+					addExportButtons();
 				}
-				tempShell.getDisplay().dispose();
+			}
+		});
 
-			});
+		// input directory label
+		Label newModelLabel = new Label(this.content, SWT.NONE);
+		newModelLabel.setText("Create new model");
 
-			// create XMI export checkbox
-			this.xmiCheckboxBtn = new Button(this.content, SWT.CHECK);
-			this.xmiCheckboxBtn.setText("Create XMI export");
-			this.xmiCheckboxBtn.setLayoutData(GD_FILLED);
-
-			// create JSON export checkbox
-			this.jsonCheckboxBtn = new Button(this.content, SWT.CHECK);
-			this.jsonCheckboxBtn.setText("Create JSON export");
-			this.jsonCheckboxBtn.setLayoutData(GD_FILLED);
-
-			// add export to XMI button
-			final Button exportToXMIButton = new Button(this.content, SWT.PUSH);
-			exportToXMIButton.setLayoutData(GD_CENTERED);
-			exportToXMIButton.setText("    Export    ");
-
-			// export button click event
-			exportToXMIButton.addSelectionListener(new SelectionAdapter() {
-
-				@Override
-				public void widgetSelected(SelectionEvent arg0) {
-					if (outputDirPath == null || outputDirPath.isBlank()) {
-						// no output directory specified
-						showErrorDialog("No output directory specified!");
-					} else {
-						clickedExport(ecoreViewModelObj, jsonCheckboxBtn.getSelection(), xmiCheckboxBtn.getSelection());
-					}
+		// new model button
+		final Button newModelButton = new Button(this.content, SWT.PUSH);
+		newModelButton.setLayoutData(GD_CENTERED);
+		newModelButton.setText("    Create new Model    ");
+		newModelButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				try {
+					// render ecore viewmodel
+					System.out.println("new model");
+					ecoreViewModelObj = getDummyEObject();
+					ECPSWTViewRenderer.INSTANCE.render(content, ecoreViewModelObj);
+					removeStartMenu();
+					addExportButtons();
+				} catch (final ECPRendererException e) {
+					LOGGER.severe("failed to create composite parent");
+					e.printStackTrace();
 				}
-			});
-
-			// input directory label
-			Label inputDir = new Label(this.content, SWT.NONE);
-			inputDir.setText("Select input xmi file");
-
-			// add import button
-			final Button importXMIButton = new Button(this.content, SWT.PUSH);
-			importXMIButton.setLayoutData(GD_CENTERED);
-			importXMIButton.setText("    Import...    ");
-
-			// import button click event
-			importXMIButton.addSelectionListener(new SelectionAdapter() {
-
-				@Override
-				public void widgetSelected(SelectionEvent arg0) {
-					// TODO: create file import browser
-					Shell tempShell = new Shell(content.getShell());
-					FileDialog fileDialog = new FileDialog(tempShell);
-					fileDialog.setText("Select XMI file to import");
-					String fileImportPath = fileDialog.open();
-					System.out.println(fileImportPath);
-					// TODO: convert xmi file to EObject
-					// https://stackoverflow.com/questions/26944174/load-emf-model-instance-from-xmi-file
-				}
-			});
-
-			this.content.layout(true);
-
-		} catch (final ECPRendererException e) {
-			LOGGER.severe("failed to create composite parent");
-			e.printStackTrace();
-		}
+			}
+		});
 
 		this.content.layout(true);
 		parent.layout(true);
+	}
+
+	protected void removeStartMenu() {
+		// TODO remove new model and import
+		// TODO create reset button
+	}
+
+	protected void addExportButtons() {
+		// output directory label
+		this.dirLabel = new Label(this.content, SWT.NONE);
+		this.dirLabel.setText(NO_OUTPUT_DIR_STRING);
+		this.dirLabel.setLayoutData(GD_FILLED);
+
+		// browse button for output directory
+		final Button btnBrowse = new Button(this.content, SWT.NONE);
+		btnBrowse.setText("    Browse...    ");
+		btnBrowse.setLayoutData(GD_CENTERED);
+		this.content.layout(true);
+
+		// called when browse button clicked
+		btnBrowse.addListener(SWT.Selection, e -> {
+			// open dialog and save directory path
+			Shell tempShell = new Shell(this.content.getShell());
+			DirectoryDialog dirDialog = new DirectoryDialog(tempShell);
+			dirDialog.setText("Select the parent directory for tools");
+			outputDirPath = dirDialog.open();
+			LOGGER.info("Chosen output directory: " + outputDirPath);
+
+			// update label
+			this.dirLabel.setText(OUTPUT_DIR_STRING_PREFIX + outputDirPath);
+			while (!tempShell.isDisposed()) {
+				if (!tempShell.getDisplay().readAndDispatch()) {
+					tempShell.getDisplay().sleep();
+				}
+			}
+			tempShell.getDisplay().dispose();
+
+		});
+
+		// create XMI export checkbox
+		this.xmiCheckboxBtn = new Button(this.content, SWT.CHECK);
+		this.xmiCheckboxBtn.setText("Create XMI export");
+		this.xmiCheckboxBtn.setLayoutData(GD_FILLED);
+
+		// create JSON export checkbox
+		this.jsonCheckboxBtn = new Button(this.content, SWT.CHECK);
+		this.jsonCheckboxBtn.setText("Create JSON export");
+		this.jsonCheckboxBtn.setLayoutData(GD_FILLED);
+
+		// add export to XMI button
+		final Button exportToXMIButton = new Button(this.content, SWT.PUSH);
+		exportToXMIButton.setLayoutData(GD_CENTERED);
+		exportToXMIButton.setText("    Export    ");
+
+		// export button click event
+		exportToXMIButton.addSelectionListener(new SelectionAdapter() {
+
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				if (outputDirPath == null || outputDirPath.isBlank()) {
+					// no output directory specified
+					showErrorDialog("No output directory specified!");
+				} else {
+					clickedExport(ecoreViewModelObj, jsonCheckboxBtn.getSelection(), xmiCheckboxBtn.getSelection());
+				}
+			}
+		});
+
+		this.content.layout();
+	}
+
+	/***
+	 * 
+	 * @return an EObject representation of the values in the forms-editor
+	 * @deprecated
+	 */
+	@Deprecated(since = "0.1")
+	protected EObject getFormObject() {
+//		return this.renderedComposite.getViewModelContext().getDomainModel();
+		return null;
 	}
 
 	/***
@@ -216,7 +271,7 @@ public class SampleView {
 		// only if the XMI checkbox is selected
 		if (doXMIExport) {
 			try {
-				exportToXMI(fileName + ".xml", ecoreViewModelObj);
+				exportToXMI(fileName + ".xmi", ecoreViewModelObj);
 			} catch (IOException e) {
 				LOGGER.severe("Unable to save EObject data to XMI file");
 				e.printStackTrace();
@@ -313,4 +368,43 @@ public class SampleView {
 		this.xmiCheckboxBtn.setSelection(false);
 		this.jsonCheckboxBtn.setSelection(false);
 	}
+
+	public static EObject importModelFromPath(String path) {
+		// normalize to URI
+		path = convertToFileURL(path);
+
+		// Initialize Models
+		DatadropModelPackage.eINSTANCE.getProject();
+
+		// Create a new Resource set to store the EObjects from the file
+		ResourceSet resSet = new ResourceSetImpl();
+
+		// get the resource of your ecore file
+		Resource resource = resSet.getResource(URI.createURI(path), true);
+
+		// Get the first element = root of your model hierarchy
+		return resource.getContents().get(0);
+	}
+
+	/**
+	 * Convert from a filename to a file URL.
+	 * 
+	 * @param filename the filename that shall be converted to a String URI
+	 *                 representation
+	 * @return a File URI representation of a given filepath.
+	 */
+	private static String convertToFileURL(String filename) {
+		String path = new File(filename).getAbsolutePath();
+		if (File.separatorChar != '/') {
+			path = path.replace(File.separatorChar, '/');
+		}
+		if (!path.startsWith("/")) {
+			StringBuilder stringBuilder = new StringBuilder();
+			stringBuilder.append("/");
+			stringBuilder.append(path);
+			path = stringBuilder.toString();
+		}
+		return "file:" + path;
+	}
+
 }

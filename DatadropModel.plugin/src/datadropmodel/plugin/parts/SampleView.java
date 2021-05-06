@@ -6,12 +6,12 @@ import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -20,8 +20,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.emf.ecp.ui.view.ECPRendererException;
 import org.eclipse.emf.ecp.ui.view.swt.ECPSWTViewRenderer;
-import org.eclipse.emf.edit.domain.EditingDomain;
-import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -45,7 +43,7 @@ import datadropModel.DatadropModelPackage;
  */
 public class SampleView {
 
-	private static final Logger LOGGER = Util.getLogger(SampleView.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(SampleView.class.getName());
 	private static final String OUTPUT_DIR_STRING_PREFIX = "Output directory: ";
 	private static final String NO_OUTPUT_DIR_STRING = OUTPUT_DIR_STRING_PREFIX + "No directory specified!";
 	private static final GridData GD_FILLED = new GridData(SWT.FILL, SWT.FILL, true, true);
@@ -60,7 +58,7 @@ public class SampleView {
 
 	private EObject getDummyEObject() {
 		LOGGER.fine("getting dummy object");
-		final EClass eClass = DatadropModelPackage.eINSTANCE.getProject();
+		final var eClass = DatadropModelPackage.eINSTANCE.getProject();
 		return EcoreUtil.create(eClass);
 	}
 
@@ -79,9 +77,9 @@ public class SampleView {
 
 		// create window layout
 		this.content.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_WHITE));
-		GridData gridData = new GridData(GridData.FILL, GridData.FILL, true, false);
+		var gridData = new GridData(GridData.FILL, GridData.FILL, true, false);
 		this.content.setLayoutData(gridData);
-		GridLayout windowLayout = new GridLayout(1, false);
+		var windowLayout = new GridLayout(1, false);
 		windowLayout.marginBottom = 10;
 		this.content.setLayout(windowLayout);
 
@@ -90,11 +88,11 @@ public class SampleView {
 		//////////////////////////////////////////
 
 		// input directory label
-		Label inputDir = new Label(this.content, SWT.NONE);
+		var inputDir = new Label(this.content, SWT.NONE);
 		inputDir.setText("Select input xmi file");
 
 		// add import button
-		final Button importXMIButton = new Button(this.content, SWT.PUSH);
+		final var importXMIButton = new Button(this.content, SWT.PUSH);
 		importXMIButton.setLayoutData(GD_CENTERED);
 		importXMIButton.setText("    Import...    ");
 
@@ -105,8 +103,8 @@ public class SampleView {
 			public void widgetSelected(SelectionEvent arg0) {
 				LOGGER.info("-----importing from XMI-----");
 				// file import dialog
-				Shell tempShell = new Shell(content.getShell());
-				FileDialog fileDialog = new FileDialog(tempShell);
+				var tempShell = new Shell(content.getShell());
+				var fileDialog = new FileDialog(tempShell);
 				fileDialog.setText("Select XMI file to import");
 				String fileImportPath = fileDialog.open();
 
@@ -129,11 +127,11 @@ public class SampleView {
 		});
 
 		// input directory label
-		Label newModelLabel = new Label(this.content, SWT.NONE);
+		var newModelLabel = new Label(this.content, SWT.NONE);
 		newModelLabel.setText("Create new model");
 
 		// new model button
-		final Button newModelButton = new Button(this.content, SWT.PUSH);
+		final var newModelButton = new Button(this.content, SWT.PUSH);
 		newModelButton.setLayoutData(GD_CENTERED);
 		newModelButton.setText("    Create new Model    ");
 		newModelButton.addSelectionListener(new SelectionAdapter() {
@@ -141,7 +139,7 @@ public class SampleView {
 			public void widgetSelected(SelectionEvent arg0) {
 				try {
 					// render ecore viewmodel
-					System.out.println("new model");
+					LOGGER.info("creating new model");
 					ecoreViewModelObj = getDummyEObject();
 					ECPSWTViewRenderer.INSTANCE.render(content, ecoreViewModelObj);
 					removeStartMenu();
@@ -169,7 +167,7 @@ public class SampleView {
 		this.dirLabel.setLayoutData(GD_FILLED);
 
 		// browse button for output directory
-		final Button btnBrowse = new Button(this.content, SWT.NONE);
+		final var btnBrowse = new Button(this.content, SWT.NONE);
 		btnBrowse.setText("    Browse...    ");
 		btnBrowse.setLayoutData(GD_CENTERED);
 		this.content.layout(true);
@@ -177,8 +175,8 @@ public class SampleView {
 		// called when browse button clicked
 		btnBrowse.addListener(SWT.Selection, e -> {
 			// open dialog and save directory path
-			Shell tempShell = new Shell(this.content.getShell());
-			DirectoryDialog dirDialog = new DirectoryDialog(tempShell);
+			var tempShell = new Shell(this.content.getShell());
+			var dirDialog = new DirectoryDialog(tempShell);
 			dirDialog.setText("Select the parent directory for tools");
 			outputDirPath = dirDialog.open();
 			LOGGER.info("Chosen output directory: " + outputDirPath);
@@ -205,7 +203,7 @@ public class SampleView {
 		this.jsonCheckboxBtn.setLayoutData(GD_FILLED);
 
 		// add export to XMI button
-		final Button exportToXMIButton = new Button(this.content, SWT.PUSH);
+		final var exportToXMIButton = new Button(this.content, SWT.PUSH);
 		exportToXMIButton.setLayoutData(GD_CENTERED);
 		exportToXMIButton.setText("    Export    ");
 
@@ -243,7 +241,7 @@ public class SampleView {
 	 * @param msg the message that shall be displayed in the dialog.
 	 */
 	protected void showErrorDialog(String msg) {
-		Shell errorShell = new Shell(content.getShell());
+		var errorShell = new Shell(content.getShell());
 		MessageDialog.openError(errorShell, "Error", msg);
 		LOGGER.info(msg);
 	}
@@ -263,7 +261,7 @@ public class SampleView {
 			return;
 		}
 
-		LOGGER.info("EObject Data: " + ecoreViewModelObj.toString());
+		LOGGER.log(Level.INFO, "EObject Data: {0}", ecoreViewModelObj);
 
 		// create a filename
 		String fileName = getFileName();
@@ -307,7 +305,7 @@ public class SampleView {
 		LOGGER.info("-----exporting to JSON-----");
 		ResourceSet resourceSet = new ResourceSetImpl();
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("json", new JsonResourceFactory());
-		Resource jsonResource = resourceSet.createResource(URI.createFileURI(fileName));
+		var jsonResource = resourceSet.createResource(URI.createFileURI(fileName));
 
 		jsonResource.getContents().add(ecoreViewModelObj);
 		jsonResource.save(null);
@@ -323,7 +321,7 @@ public class SampleView {
 	private String getFileName() {
 		String timePrefix = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(new Date());
 		String fileName = outputDirPath + File.separator + timePrefix + "_export";
-		LOGGER.info("Filename: " + fileName);
+		LOGGER.log(Level.INFO, "Filename: {0}", fileName);
 		return fileName;
 	}
 
@@ -341,7 +339,7 @@ public class SampleView {
 		m.put("project", new XMIResourceFactoryImpl());
 
 		ResourceSet resSet = new ResourceSetImpl();
-		Resource resource = resSet.createResource(URI.createFileURI(fileName));
+		var resource = resSet.createResource(URI.createFileURI(fileName));
 		resource.getContents().add(data);
 		resource.save(Collections.emptyMap());
 	}
@@ -352,7 +350,7 @@ public class SampleView {
 	 * @param fileName the filename of the created export.
 	 */
 	private void showExportFinishedDialog() {
-		Shell infoShell = new Shell(this.content.getShell());
+		var infoShell = new Shell(this.content.getShell());
 		MessageDialog.openInformation(infoShell, "Created Exports", "Finished, created exports at " + outputDirPath);
 	}
 
@@ -380,7 +378,7 @@ public class SampleView {
 		ResourceSet resSet = new ResourceSetImpl();
 
 		// get the resource of your ecore file
-		Resource resource = resSet.getResource(URI.createURI(path), true);
+		var resource = resSet.getResource(URI.createURI(path), true);
 
 		// Get the first element = root of your model hierarchy
 		return resource.getContents().get(0);
@@ -399,7 +397,7 @@ public class SampleView {
 			path = path.replace(File.separatorChar, '/');
 		}
 		if (!path.startsWith("/")) {
-			StringBuilder stringBuilder = new StringBuilder();
+			var stringBuilder = new StringBuilder();
 			stringBuilder.append("/");
 			stringBuilder.append(path);
 			path = stringBuilder.toString();

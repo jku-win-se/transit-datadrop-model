@@ -13,12 +13,12 @@ public class Util {
 	public static Logger getLogger(String className) {
 
 		// add custom logging
-		Logger logger = Logger.getLogger(className);
+		var logger = Logger.getLogger(className);
 		logger.setUseParentHandlers(false);
 
-		ConsoleHandler handler = new ConsoleHandler();
+		var handler = new ConsoleHandler();
 
-		LogFormatter formatter = new LogFormatter();
+		var formatter = new LogFormatter();
 		handler.setFormatter(formatter);
 
 		logger.addHandler(handler);

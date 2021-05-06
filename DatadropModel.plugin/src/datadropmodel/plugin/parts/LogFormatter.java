@@ -22,31 +22,31 @@ public class LogFormatter extends Formatter {
 
 	// format is called for every console log message
 	@Override
-	public String format(LogRecord record) {
+	public String format(LogRecord pRecord) {
 		// This example will print date/time, class, and log level in yellow,
 		// followed by the log message and it's parameters in white .
-		StringBuilder builder = new StringBuilder();
+		var builder = new StringBuilder();
 
 		builder.append("[");
-		builder.append(calcDate(record.getMillis()));
+		builder.append(calcDate(pRecord.getMillis()));
 		builder.append("]");
 
 		builder.append(" [");
-		builder.append(record.getSourceClassName());
+		builder.append(pRecord.getSourceClassName());
 		builder.append("]");
 
 		builder.append(" [");
-		builder.append(record.getLevel().getName());
+		builder.append(pRecord.getLevel().getName());
 		builder.append("]");
 
 		builder.append(" - ");
-		builder.append(record.getMessage());
+		builder.append(pRecord.getMessage());
 
-		Object[] params = record.getParameters();
+		Object[] params = pRecord.getParameters();
 
 		if (params != null) {
 			builder.append("\t");
-			for (int i = 0; i < params.length; i++) {
+			for (var i = 0; i < params.length; i++) {
 				builder.append(params[i]);
 				if (i < params.length - 1)
 					builder.append(", ");
@@ -58,8 +58,8 @@ public class LogFormatter extends Formatter {
 	}
 
 	private String calcDate(long millisecs) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date resultdate = new Date(millisecs);
+		var dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		var resultdate = new Date(millisecs);
 		return dateFormat.format(resultdate);
 	}
 }

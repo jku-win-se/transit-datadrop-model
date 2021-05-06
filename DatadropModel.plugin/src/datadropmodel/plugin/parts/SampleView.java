@@ -6,8 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 
@@ -19,6 +17,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.emf.ecp.ui.view.ECPRendererException;
+import org.eclipse.emf.ecp.ui.view.swt.ECPSWTView;
 import org.eclipse.emf.ecp.ui.view.swt.ECPSWTViewRenderer;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
@@ -30,9 +29,12 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.FileDialog;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.emfjson.jackson.resource.JsonResourceFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import datadropModel.DatadropModelPackage;
 
@@ -43,7 +45,7 @@ import datadropModel.DatadropModelPackage;
  */
 public class SampleView {
 
-	private static final Logger LOGGER = Logger.getLogger(SampleView.class.getName());
+	private static final Logger LOGGER = LoggerFactory.getLogger(SampleView.class);
 	private static final String OUTPUT_DIR_STRING_PREFIX = "Output directory: ";
 	private static final String NO_OUTPUT_DIR_STRING = OUTPUT_DIR_STRING_PREFIX + "No directory specified!";
 	private static final GridData GD_FILLED = new GridData(SWT.FILL, SWT.FILL, true, true);
@@ -55,9 +57,18 @@ public class SampleView {
 	private String outputDirPath;
 	private Label dirLabel;
 	private EObject ecoreViewModelObj;
+	private Group mainMenuGroup;
+	private Group exportMenuGroup;
+	private Group backNavMenuGroup;
+	private ECPSWTView modelEditorView;
 
+	/***
+	 * Creates an empty EObject of the Project ecore Object instance.
+	 * 
+	 * @return an EObject of the DatadropModelPackage Project instance.
+	 */
 	private EObject getDummyEObject() {
-		LOGGER.fine("getting dummy object");
+		LOGGER.info("getting dummy object");
 		final var eClass = DatadropModelPackage.eINSTANCE.getProject();
 		return EcoreUtil.create(eClass);
 	}
@@ -69,30 +80,39 @@ public class SampleView {
 	 */
 	@PostConstruct
 	public void createComposite(Composite parent) {
-		LOGGER.info("###################################################################");
 		LOGGER.info("#######################    Starting View    #######################");
-		LOGGER.info("###################################################################");
 
-		this.content = new Composite(parent, SWT.NONE);
+		content = new Composite(parent, SWT.NONE);
 
 		// create window layout
-		this.content.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_WHITE));
+		content.setBackground(parent.getDisplay().getSystemColor(SWT.COLOR_WHITE));
 		var gridData = new GridData(GridData.FILL, GridData.FILL, true, false);
-		this.content.setLayoutData(gridData);
+		content.setLayoutData(gridData);
 		var windowLayout = new GridLayout(1, false);
 		windowLayout.marginBottom = 10;
-		this.content.setLayout(windowLayout);
+		content.setLayout(windowLayout);
 
-		//////////////////////////////////////////
-		///////// Additional UI Elements /////////
-		//////////////////////////////////////////
+		// show the source menu
+		showMainMenu();
+
+	}
+
+	/***
+	 * Shows a main menu in order to choose between a model import or creating a
+	 * model from scratch.
+	 */
+	private void showMainMenu() {
+		mainMenuGroup = new Group(content, SWT.NONE);
+		mainMenuGroup.setLayoutData(GD_FILLED);
+		mainMenuGroup.setLayout(new GridLayout(2, true));
+		mainMenuGroup.setText("Main Menu");
 
 		// input directory label
-		var inputDir = new Label(this.content, SWT.NONE);
+		var inputDir = new Label(mainMenuGroup, SWT.NONE);
 		inputDir.setText("Select input xmi file");
 
 		// add import button
-		final var importXMIButton = new Button(this.content, SWT.PUSH);
+		final var importXMIButton = new Button(mainMenuGroup, SWT.PUSH);
 		importXMIButton.setLayoutData(GD_CENTERED);
 		importXMIButton.setText("    Import...    ");
 
@@ -111,27 +131,34 @@ public class SampleView {
 				if (fileImportPath.isBlank() || fileImportPath.isEmpty()) {
 					LOGGER.info("Fileimport path is empty");
 				} else {
-					LOGGER.info("Importing file:" + fileImportPath);
+					LOGGER.info("Importing file: {}", fileImportPath);
 					ecoreViewModelObj = importModelFromPath(fileImportPath);
 					try {
 						// render ecore viewmodel
-						ECPSWTViewRenderer.INSTANCE.render(content, ecoreViewModelObj);
+						modelEditorView = ECPSWTViewRenderer.INSTANCE.render(content, ecoreViewModelObj);
+
+						// remove main menu
+						removeMainMenu();
+
+						// show export menu
+						showExportMenu();
+
+						// show back button
+						showNavigationMenu();
 					} catch (final ECPRendererException e) {
-						LOGGER.severe("failed to create composite parent");
+						LOGGER.error("failed to create composite parent");
 						e.printStackTrace();
 					}
-					removeStartMenu();
-					addExportButtons();
 				}
 			}
 		});
 
 		// input directory label
-		var newModelLabel = new Label(this.content, SWT.NONE);
+		var newModelLabel = new Label(mainMenuGroup, SWT.NONE);
 		newModelLabel.setText("Create new model");
 
 		// new model button
-		final var newModelButton = new Button(this.content, SWT.PUSH);
+		final var newModelButton = new Button(mainMenuGroup, SWT.PUSH);
 		newModelButton.setLayoutData(GD_CENTERED);
 		newModelButton.setText("    Create new Model    ");
 		newModelButton.addSelectionListener(new SelectionAdapter() {
@@ -141,48 +168,127 @@ public class SampleView {
 					// render ecore viewmodel
 					LOGGER.info("creating new model");
 					ecoreViewModelObj = getDummyEObject();
-					ECPSWTViewRenderer.INSTANCE.render(content, ecoreViewModelObj);
-					removeStartMenu();
-					addExportButtons();
+					modelEditorView = ECPSWTViewRenderer.INSTANCE.render(content, ecoreViewModelObj);
+
+					// remove main menu
+					removeMainMenu();
+
+					// show export menu
+					showExportMenu();
+
+					// show back button
+					showNavigationMenu();
 				} catch (final ECPRendererException e) {
-					LOGGER.severe("failed to create composite parent");
+					LOGGER.error("failed to create composite parent");
 					e.printStackTrace();
 				}
 			}
 		});
 
-		this.content.layout(true);
-		parent.layout(true);
+		content.layout(true, true);
 	}
 
-	protected void removeStartMenu() {
-		// TODO remove new model and import
-		// TODO create reset button
+	/***
+	 * Disposes the main menu and updates the window.
+	 */
+	protected void removeMainMenu() {
+		mainMenuGroup.dispose();
+		content.layout(true, true);
 	}
 
-	protected void addExportButtons() {
+	/**
+	 * Shows a navigation menu with a back button to navigate back to he main menu.
+	 */
+	protected void showNavigationMenu() {
+		// group contents
+		backNavMenuGroup = new Group(content, SWT.NONE);
+		backNavMenuGroup.setLayoutData(GD_FILLED);
+		backNavMenuGroup.setLayout(new GridLayout(1, true));
+		backNavMenuGroup.setText("Navigation Menu");
+
+		// add back button
+		final var backButton = new Button(backNavMenuGroup, SWT.PUSH);
+		backButton.setLayoutData(GD_CENTERED);
+		backButton.setText("    <- Back    ");
+
+		// on click
+		backButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				// remove the model editor
+				removeModelEditor();
+
+				// remove export menu
+				removeExportMenu();
+
+				// remove navigation menu
+				removeNavMenu();
+
+				// show main menu
+				showMainMenu();
+			}
+		});
+
+		// refresh window
+		content.layout(true, true);
+	}
+
+	/***
+	 * Disposes the model editor assigned to modelEditorView.
+	 */
+	protected void removeModelEditor() {
+		modelEditorView.dispose();
+		content.layout(true, true);
+	}
+
+	/***
+	 * Disposes the export menu.
+	 */
+	protected void removeExportMenu() {
+		exportMenuGroup.dispose();
+		content.layout(true, true);
+	}
+
+	/***
+	 * Disposes the navigation menu.
+	 */
+	protected void removeNavMenu() {
+		backNavMenuGroup.dispose();
+		content.layout(true, true);
+	}
+
+	/***
+	 * Creates an export menu to create JSON and XMI files.
+	 */
+	protected void showExportMenu() {
+		// group contents in a group
+		exportMenuGroup = new Group(content, SWT.NONE);
+		exportMenuGroup.setLayoutData(GD_FILLED);
+		exportMenuGroup.setLayout(new GridLayout(1, true));
+		exportMenuGroup.setText("Export Menu");
+
 		// output directory label
-		this.dirLabel = new Label(this.content, SWT.NONE);
-		this.dirLabel.setText(NO_OUTPUT_DIR_STRING);
-		this.dirLabel.setLayoutData(GD_FILLED);
+		dirLabel = new Label(exportMenuGroup, SWT.NONE);
+		dirLabel.setText(NO_OUTPUT_DIR_STRING);
+		dirLabel.setLayoutData(GD_FILLED);
 
 		// browse button for output directory
-		final var btnBrowse = new Button(this.content, SWT.NONE);
+		final var btnBrowse = new Button(exportMenuGroup, SWT.NONE);
 		btnBrowse.setText("    Browse...    ");
 		btnBrowse.setLayoutData(GD_CENTERED);
-		this.content.layout(true);
+		content.layout(true, true);
 
 		// called when browse button clicked
 		btnBrowse.addListener(SWT.Selection, e -> {
 			// open dialog and save directory path
-			var tempShell = new Shell(this.content.getShell());
+			var tempShell = new Shell(content.getShell());
 			var dirDialog = new DirectoryDialog(tempShell);
 			dirDialog.setText("Select the parent directory for tools");
 			outputDirPath = dirDialog.open();
-			LOGGER.info("Chosen output directory: " + outputDirPath);
+			LOGGER.info("Chosen output directory: {}", outputDirPath);
 
 			// update label
-			this.dirLabel.setText(OUTPUT_DIR_STRING_PREFIX + outputDirPath);
+			dirLabel.setText(OUTPUT_DIR_STRING_PREFIX + outputDirPath);
 			while (!tempShell.isDisposed()) {
 				if (!tempShell.getDisplay().readAndDispatch()) {
 					tempShell.getDisplay().sleep();
@@ -193,17 +299,17 @@ public class SampleView {
 		});
 
 		// create XMI export checkbox
-		this.xmiCheckboxBtn = new Button(this.content, SWT.CHECK);
-		this.xmiCheckboxBtn.setText("Create XMI export");
-		this.xmiCheckboxBtn.setLayoutData(GD_FILLED);
+		xmiCheckboxBtn = new Button(exportMenuGroup, SWT.CHECK);
+		xmiCheckboxBtn.setText("Create XMI export");
+		xmiCheckboxBtn.setLayoutData(GD_FILLED);
 
 		// create JSON export checkbox
-		this.jsonCheckboxBtn = new Button(this.content, SWT.CHECK);
-		this.jsonCheckboxBtn.setText("Create JSON export");
-		this.jsonCheckboxBtn.setLayoutData(GD_FILLED);
+		jsonCheckboxBtn = new Button(exportMenuGroup, SWT.CHECK);
+		jsonCheckboxBtn.setText("Create JSON export");
+		jsonCheckboxBtn.setLayoutData(GD_FILLED);
 
 		// add export to XMI button
-		final var exportToXMIButton = new Button(this.content, SWT.PUSH);
+		final var exportToXMIButton = new Button(exportMenuGroup, SWT.PUSH);
 		exportToXMIButton.setLayoutData(GD_CENTERED);
 		exportToXMIButton.setText("    Export    ");
 
@@ -221,7 +327,8 @@ public class SampleView {
 			}
 		});
 
-		this.content.layout();
+		// update view
+		content.layout(true, true);
 	}
 
 	/***
@@ -231,7 +338,7 @@ public class SampleView {
 	 */
 	@Deprecated(since = "0.1")
 	protected EObject getFormObject() {
-//		return this.renderedComposite.getViewModelContext().getDomainModel();
+//		return renderedComposite.getViewModelContext().getDomainModel();
 		return null;
 	}
 
@@ -261,7 +368,7 @@ public class SampleView {
 			return;
 		}
 
-		LOGGER.log(Level.INFO, "EObject Data: {0}", ecoreViewModelObj);
+		LOGGER.info("EObject Data: {}", ecoreViewModelObj);
 
 		// create a filename
 		String fileName = getFileName();
@@ -271,7 +378,7 @@ public class SampleView {
 			try {
 				exportToXMI(fileName + ".xmi", ecoreViewModelObj);
 			} catch (IOException e) {
-				LOGGER.severe("Unable to save EObject data to XMI file");
+				LOGGER.error("Unable to save EObject data to XMI file");
 				e.printStackTrace();
 			}
 		}
@@ -281,7 +388,7 @@ public class SampleView {
 			try {
 				exportToJson(fileName + ".json", ecoreViewModelObj);
 			} catch (IOException e) {
-				LOGGER.severe("Unable to save EObject data to JSON file");
+				LOGGER.error("Unable to save EObject data to JSON file");
 				e.printStackTrace();
 			}
 		}
@@ -321,7 +428,7 @@ public class SampleView {
 	private String getFileName() {
 		String timePrefix = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(new Date());
 		String fileName = outputDirPath + File.separator + timePrefix + "_export";
-		LOGGER.log(Level.INFO, "Filename: {0}", fileName);
+		LOGGER.info("Filename: {}", fileName);
 		return fileName;
 	}
 
@@ -350,7 +457,7 @@ public class SampleView {
 	 * @param fileName the filename of the created export.
 	 */
 	private void showExportFinishedDialog() {
-		var infoShell = new Shell(this.content.getShell());
+		var infoShell = new Shell(content.getShell());
 		MessageDialog.openInformation(infoShell, "Created Exports", "Finished, created exports at " + outputDirPath);
 	}
 
@@ -360,13 +467,21 @@ public class SampleView {
 	private void resetOutputDirData() {
 		// reset directory selection
 		outputDirPath = "";
-		this.dirLabel.setText(NO_OUTPUT_DIR_STRING);
+		dirLabel.setText(NO_OUTPUT_DIR_STRING);
 
 		// reset checkboxes
-		this.xmiCheckboxBtn.setSelection(false);
-		this.jsonCheckboxBtn.setSelection(false);
+		xmiCheckboxBtn.setSelection(false);
+		jsonCheckboxBtn.setSelection(false);
 	}
 
+	/***
+	 * Takes a complete filepath XMI as input and returns the EObject as Project
+	 * instance.
+	 * 
+	 * @param path the filepath to the XMI file
+	 * @return an EObject of type Project that is in assumed to be in the XMI file
+	 *         TODO: only allow xmi file-imports
+	 */
 	public static EObject importModelFromPath(String path) {
 		// normalize to URI
 		path = convertToFileURL(path);

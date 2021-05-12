@@ -134,9 +134,8 @@ public class SampleView {
 					LOGGER.info("Importing file: {}", fileImportPath);
 					ecoreViewModelObj = importModelFromPath(fileImportPath);
 					try {
-						// render ecore viewmodel
+						// render form editor
 						modelEditorView = ECPSWTViewRenderer.INSTANCE.render(content, ecoreViewModelObj);
-
 						// remove main menu
 						removeMainMenu();
 
@@ -168,6 +167,8 @@ public class SampleView {
 					// render ecore viewmodel
 					LOGGER.info("creating new model");
 					ecoreViewModelObj = getDummyEObject();
+
+					// render form editor
 					modelEditorView = ECPSWTViewRenderer.INSTANCE.render(content, ecoreViewModelObj);
 
 					// remove main menu
@@ -397,6 +398,7 @@ public class SampleView {
 		showExportFinishedDialog();
 
 		// reset the export directory and the corresponding values for next export
+		// TODO: back to main menu/make it still editable
 		resetOutputDirData();
 	}
 

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.emf.ecp.view.model:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:org.eclipse.emf.ecp.view.model="http://org/eclipse/emf/ecp/view/model/1180" xmi:id="_pz2igLL4EeuXbbXC0WLg8g" name="Profile">
+  <rootEClass href="http://www.example.org/datadropModel#//Profile"/>
+  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_pz8CELL4EeuXbbXC0WLg8g" name="Control name">
+    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_pz8CEbL4EeuXbbXC0WLg8g">
+      <domainModelEFeature xsi:type="ecore:EAttribute" href="http://www.example.org/datadropModel#//Profile/name"/>
+    </domainModelReference>
+  </children>
+  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_pz8CErL4EeuXbbXC0WLg8g" name="Control mandatory_files">
+    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_pz8CE7L4EeuXbbXC0WLg8g">
+      <domainModelEFeature xsi:type="ecore:EReference" href="http://www.example.org/datadropModel#//Profile/mandatory_files"/>
+    </domainModelReference>
+  </children>
+  <ecorePaths>/DatadropModel/model/datadropModel.ecore</ecorePaths>
+</org.eclipse.emf.ecp.view.model:View>

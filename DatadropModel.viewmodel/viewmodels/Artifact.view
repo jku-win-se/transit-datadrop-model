@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<org.eclipse.emf.ecp.view.model:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:org.eclipse.emf.ecp.view.model="http://org/eclipse/emf/ecp/view/model/1180" xmi:id="_2RQEgKjKEeu-jZl-DG3bhQ" name="Artifact">
+<org.eclipse.emf.ecp.view.model:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:org.eclipse.emf.ecp.view.model="http://org/eclipse/emf/ecp/view/model/1180" xmi:id="_i6Ue4LL4EeuXbbXC0WLg8g" name="Artifact">
   <rootEClass href="http://www.example.org/datadropModel#//Artifact"/>
-  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_2RbqsKjKEeu-jZl-DG3bhQ" name="Control type">
-    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_2RbqsajKEeu-jZl-DG3bhQ">
+  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_i6ZXYLL4EeuXbbXC0WLg8g" name="Control type">
+    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_i6ZXYbL4EeuXbbXC0WLg8g">
       <domainModelEFeature xsi:type="ecore:EAttribute" href="http://www.example.org/datadropModel#//Artifact/type"/>
     </domainModelReference>
   </children>
-  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_2RbqsqjKEeu-jZl-DG3bhQ" name="Control name">
-    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_2Rbqs6jKEeu-jZl-DG3bhQ">
+  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_i6ZXYrL4EeuXbbXC0WLg8g" name="Control name">
+    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_i6ZXY7L4EeuXbbXC0WLg8g">
       <domainModelEFeature xsi:type="ecore:EAttribute" href="http://www.example.org/datadropModel#//Artifact/name"/>
     </domainModelReference>
   </children>
-  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_2RbqtKjKEeu-jZl-DG3bhQ" name="Control files">
-    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_2RbqtajKEeu-jZl-DG3bhQ">
+  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_i6ZXZLL4EeuXbbXC0WLg8g" name="Control files">
+    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_i6ZXZbL4EeuXbbXC0WLg8g">
       <domainModelEFeature xsi:type="ecore:EReference" href="http://www.example.org/datadropModel#//Artifact/files"/>
     </domainModelReference>
   </children>

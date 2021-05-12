@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.emf.ecp.view.model:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:org.eclipse.emf.ecp.view.model="http://org/eclipse/emf/ecp/view/model/1180" xmi:id="_sWtg0LL4EeuXbbXC0WLg8g" name="RepositoryInterface">
+  <rootEClass href="http://www.example.org/datadropModel#//RepositoryInterface"/>
+  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_sWyZULL4EeuXbbXC0WLg8g" name="Control repository_id">
+    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_sWyZUbL4EeuXbbXC0WLg8g">
+      <domainModelEFeature xsi:type="ecore:EAttribute" href="http://www.example.org/datadropModel#//RepositoryInterface/repository_id"/>
+    </domainModelReference>
+  </children>
+  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_sWyZUrL4EeuXbbXC0WLg8g" name="Control repository_name">
+    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_sWyZU7L4EeuXbbXC0WLg8g">
+      <domainModelEFeature xsi:type="ecore:EAttribute" href="http://www.example.org/datadropModel#//RepositoryInterface/repository_name"/>
+    </domainModelReference>
+  </children>
+  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_sWyZVLL4EeuXbbXC0WLg8g" name="Control remote_url">
+    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_sWyZVbL4EeuXbbXC0WLg8g">
+      <domainModelEFeature xsi:type="ecore:EAttribute" href="http://www.example.org/datadropModel#//RepositoryInterface/remote_url"/>
+    </domainModelReference>
+  </children>
+  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_sWyZVrL4EeuXbbXC0WLg8g" name="Control credentials">
+    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_sWyZV7L4EeuXbbXC0WLg8g">
+      <domainModelEFeature xsi:type="ecore:EReference" href="http://www.example.org/datadropModel#//RepositoryInterface/credentials"/>
+    </domainModelReference>
+  </children>
+  <ecorePaths>/DatadropModel/model/datadropModel.ecore</ecorePaths>
+</org.eclipse.emf.ecp.view.model:View>

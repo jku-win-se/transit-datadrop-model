@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.emf.ecp.view.model:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:org.eclipse.emf.ecp.view.model="http://org/eclipse/emf/ecp/view/model/1180" xmlns:org.eclipse.emf.ecp.view.treemasterview.model="http://org/eclipse/emf/ecp/view/treemasterview/model" xmi:id="_Dgy3QLL4EeuXbbXC0WLg8g" name="Project">
+  <rootEClass href="http://www.example.org/datadropModel#//Project"/>
+  <children xsi:type="org.eclipse.emf.ecp.view.treemasterview.model:TreeMasterDetail" xmi:id="_E1nVILL4EeuXbbXC0WLg8g"/>
+  <ecorePaths>/DatadropModel/model/datadropModel.ecore</ecorePaths>
+</org.eclipse.emf.ecp.view.model:View>

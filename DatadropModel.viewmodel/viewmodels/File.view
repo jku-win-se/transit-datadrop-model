@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.emf.ecp.view.model:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:org.eclipse.emf.ecp.view.model="http://org/eclipse/emf/ecp/view/model/1180" xmi:id="_lD4zcLL4EeuXbbXC0WLg8g" name="File">
+  <rootEClass href="http://www.example.org/datadropModel#//File"/>
+  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_lD9r8LL4EeuXbbXC0WLg8g" name="Control name">
+    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_lD9r8bL4EeuXbbXC0WLg8g">
+      <domainModelEFeature xsi:type="ecore:EAttribute" href="http://www.example.org/datadropModel#//File/name"/>
+    </domainModelReference>
+  </children>
+  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_lD-TALL4EeuXbbXC0WLg8g" name="Control extension">
+    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_lD-TAbL4EeuXbbXC0WLg8g">
+      <domainModelEFeature xsi:type="ecore:EAttribute" href="http://www.example.org/datadropModel#//File/extension"/>
+    </domainModelReference>
+  </children>
+  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_lD-TArL4EeuXbbXC0WLg8g" name="Control description">
+    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_lD-TA7L4EeuXbbXC0WLg8g">
+      <domainModelEFeature xsi:type="ecore:EAttribute" href="http://www.example.org/datadropModel#//File/description"/>
+    </domainModelReference>
+  </children>
+  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_lD-TBLL4EeuXbbXC0WLg8g" name="Control mandatory">
+    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_lD-TBbL4EeuXbbXC0WLg8g">
+      <domainModelEFeature xsi:type="ecore:EAttribute" href="http://www.example.org/datadropModel#//File/mandatory"/>
+    </domainModelReference>
+  </children>
+  <ecorePaths>/DatadropModel/model/datadropModel.ecore</ecorePaths>
+</org.eclipse.emf.ecp.view.model:View>

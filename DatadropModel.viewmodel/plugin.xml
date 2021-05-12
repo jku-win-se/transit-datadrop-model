@@ -4,20 +4,28 @@
     
     
     <extension point="org.eclipse.emf.ecp.view.model.provider.xmi.file">
+<file filePath="viewmodels/DataDropRepository.view"/>
+
+<file filePath="viewmodels/RepositoryInterface.view"/>
+
+<file filePath="viewmodels/Profile.view"/>
+
+<file filePath="viewmodels/Credentials.view"/>
+
+<file filePath="viewmodels/File.view"/>
+
 <file filePath="viewmodels/Artifact.view"/>
 
-                        
-        
-        
-        <file filePath="viewmodels/Project.view"/>
-                           
-    
-    
+<file filePath="viewmodels/Repository.view"/>
+
+		
+		<file filePath="viewmodels/Project_Tree.view"/>
+		<file filePath="viewmodels/Project.view">
+			<filter key="detail" value="true">
+			</filter>
+		</file>
+	
+	
+
     </extension>
-            
-    
-    
-        
-    
-    
 </plugin>

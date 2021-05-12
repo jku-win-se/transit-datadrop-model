@@ -114,7 +114,7 @@ public class SampleView {
 		// add import button
 		final var importXMIButton = new Button(mainMenuGroup, SWT.PUSH);
 		importXMIButton.setLayoutData(GD_CENTERED);
-		importXMIButton.setText("    Import...    ");
+		importXMIButton.setText("    Import XMI    ");
 
 		// import button click event
 		importXMIButton.addSelectionListener(new SelectionAdapter() {
@@ -137,7 +137,7 @@ public class SampleView {
 				// get the selected path
 				String fileImportPath = fileDialog.open();
 
-				if (fileImportPath.isBlank() || fileImportPath.isEmpty()) {
+				if (fileImportPath == null || fileImportPath.isBlank() || fileImportPath.isEmpty()) {
 					LOGGER.info("Fileimport path is empty");
 				} else {
 					LOGGER.info("Importing file: {}", fileImportPath);
@@ -226,22 +226,30 @@ public class SampleView {
 		backButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				// remove the model editor
-				removeModelEditor();
-
-				// remove export menu
-				removeExportMenu();
-
-				// remove navigation menu
-				removeNavMenu();
-
-				// show main menu
-				showMainMenu();
+				backToMainMenu();
 			}
 		});
 
 		// refresh window
 		content.layout(true, true);
+	}
+
+	/***
+	 * Removes model editor, export menu and the navigation menu and shows
+	 * afterwards the main menu.
+	 */
+	protected void backToMainMenu() {
+		// remove the model editor
+		removeModelEditor();
+
+		// remove export menu
+		removeExportMenu();
+
+		// remove navigation menu
+		removeNavMenu();
+
+		// show main menu
+		showMainMenu();
 	}
 
 	/***
@@ -272,7 +280,7 @@ public class SampleView {
 	 * Creates an export menu to create JSON and XMI files.
 	 */
 	protected void showExportMenu() {
-		// group contents in a group
+		// UI elements in a group
 		exportMenuGroup = new Group(content, SWT.NONE);
 		exportMenuGroup.setLayoutData(GD_FILLED);
 		exportMenuGroup.setLayout(new GridLayout(1, true));
@@ -306,13 +314,15 @@ public class SampleView {
 				}
 			}
 			tempShell.getDisplay().dispose();
-
 		});
 
 		// create XMI export checkbox
 		xmiCheckboxBtn = new Button(exportMenuGroup, SWT.CHECK);
 		xmiCheckboxBtn.setText("Create XMI export");
 		xmiCheckboxBtn.setLayoutData(GD_FILLED);
+		// force XMI export
+		xmiCheckboxBtn.setSelection(true);
+		xmiCheckboxBtn.setEnabled(false);
 
 		// create JSON export checkbox
 		jsonCheckboxBtn = new Button(exportMenuGroup, SWT.CHECK);
@@ -397,8 +407,11 @@ public class SampleView {
 		showExportFinishedDialog();
 
 		// reset the export directory and the corresponding values for next export
-		// TODO: back to main menu/make it still editable
 		resetOutputDirData();
+
+		// go back to main menu afterwards
+		backToMainMenu();
+
 	}
 
 	/***
@@ -459,7 +472,8 @@ public class SampleView {
 	 */
 	private void showExportFinishedDialog() {
 		var infoShell = new Shell(content.getShell());
-		MessageDialog.openInformation(infoShell, "Created Exports", "Finished, created exports at " + outputDirPath);
+		MessageDialog.openInformation(infoShell, "Created Export(s)",
+				"Finished, created export(s) at " + outputDirPath);
 	}
 
 	/***

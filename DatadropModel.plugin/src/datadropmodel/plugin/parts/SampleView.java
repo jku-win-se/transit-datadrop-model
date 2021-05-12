@@ -122,10 +122,19 @@ public class SampleView {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				LOGGER.info("-----importing from XMI-----");
+
 				// file import dialog
 				var tempShell = new Shell(content.getShell());
 				var fileDialog = new FileDialog(tempShell);
+
+				// only allow XMI files as input
+				fileDialog.setFilterNames(new String[] { "XML Metadata Interchange (*.xmi)" });
+				fileDialog.setFilterExtensions(new String[] { "*.xmi" });
+
+				// set dialog text
 				fileDialog.setText("Select XMI file to import");
+
+				// get the selected path
 				String fileImportPath = fileDialog.open();
 
 				if (fileImportPath.isBlank() || fileImportPath.isEmpty()) {
@@ -472,7 +481,6 @@ public class SampleView {
 	 * 
 	 * @param path the filepath to the XMI file
 	 * @return an EObject of type Project that is in assumed to be in the XMI file
-	 *         TODO: only allow XMI file-imports
 	 * 
 	 */
 	@SuppressWarnings("all") // suppress rule java:S1854

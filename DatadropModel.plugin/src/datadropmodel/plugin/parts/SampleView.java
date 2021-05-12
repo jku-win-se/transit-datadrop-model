@@ -19,7 +19,6 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.emf.ecp.ui.view.ECPRendererException;
 import org.eclipse.emf.ecp.ui.view.swt.ECPSWTView;
 import org.eclipse.emf.ecp.ui.view.swt.ECPSWTViewRenderer;
-import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -137,8 +136,7 @@ public class SampleView {
 					try {
 						// render form editor
 						modelEditorView = ECPSWTViewRenderer.INSTANCE.render(content, ecoreViewModelObj);
-						// git test commit
-						// ecoreViewModelObj.eAdapters().add(new AdapterFactoryEditingDomain())
+
 						// remove main menu
 						removeMainMenu();
 
@@ -336,17 +334,6 @@ public class SampleView {
 	}
 
 	/***
-	 * 
-	 * @return an EObject representation of the values in the forms-editor
-	 * @deprecated
-	 */
-	@Deprecated(since = "0.1")
-	protected EObject getFormObject() {
-//		return renderedComposite.getViewModelContext().getDomainModel();
-		return null;
-	}
-
-	/***
 	 * Shows an error dialog with a specified message
 	 * 
 	 * @param msg the message that shall be displayed in the dialog.
@@ -485,14 +472,16 @@ public class SampleView {
 	 * 
 	 * @param path the filepath to the XMI file
 	 * @return an EObject of type Project that is in assumed to be in the XMI file
-	 *         TODO: only allow xmi file-imports
+	 *         TODO: only allow XMI file-imports
+	 * 
 	 */
-	public static EObject importModelFromPath(String path) {
+	@SuppressWarnings("all") // suppress rule java:S1854
+	public EObject importModelFromPath(String path) {
 		// normalize to URI
 		path = convertToFileURL(path);
 
-		// Initialize Models
-		DatadropModelPackage.eINSTANCE.getProject();
+		// initialize an empty object for editing domain
+		var newEObject = getDummyEObject();
 
 		// Create a new Resource set to store the EObjects from the file
 		ResourceSet resSet = new ResourceSetImpl();
@@ -501,7 +490,13 @@ public class SampleView {
 		var resource = resSet.getResource(URI.createURI(path), true);
 
 		// Get the first element = root of your model hierarchy
-		return resource.getContents().get(0);
+		EObject importedObject = resource.getContents().get(0);
+
+		// copy the imported contents into the generated one to keep the created
+		// adapters of the new empty object
+		newEObject = EcoreUtil.copy(importedObject);
+
+		return newEObject;
 	}
 
 	/**

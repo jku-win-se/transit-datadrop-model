@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.emf.ecp.ui.view.ECPRendererException;
 import org.eclipse.emf.ecp.ui.view.swt.ECPSWTView;
 import org.eclipse.emf.ecp.ui.view.swt.ECPSWTViewRenderer;
+import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -136,6 +137,8 @@ public class SampleView {
 					try {
 						// render form editor
 						modelEditorView = ECPSWTViewRenderer.INSTANCE.render(content, ecoreViewModelObj);
+						// git test commit
+						// ecoreViewModelObj.eAdapters().add(new AdapterFactoryEditingDomain())
 						// remove main menu
 						removeMainMenu();
 

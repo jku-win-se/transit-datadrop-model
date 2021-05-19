@@ -497,7 +497,7 @@ public class SampleView {
 	 * @return an EObject of type Project that is in assumed to be in the XMI file
 	 * 
 	 */
-	@SuppressWarnings("all") // suppress rule java:S1854
+	@SuppressWarnings("java:S1854") // suppress rule java:S1854
 	public EObject importModelFromPath(String path) {
 		// normalize to URI
 		path = convertToFileURL(path);

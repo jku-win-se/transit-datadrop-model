@@ -21,5 +21,10 @@
       <domainModelEFeature xsi:type="ecore:EAttribute" href="http://www.example.org/datadropModel#//File/mandatory"/>
     </domainModelReference>
   </children>
+  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_NhQPQLk9EeuJI8TI-rgeYA" name="Control extractor">
+    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_NhQPQbk9EeuJI8TI-rgeYA">
+      <domainModelEFeature xsi:type="ecore:EReference" href="http://www.example.org/datadropModel#//File/extractor"/>
+    </domainModelReference>
+  </children>
   <ecorePaths>/DatadropModel/model/datadropModel.ecore</ecorePaths>
 </org.eclipse.emf.ecp.view.model:View>

@@ -359,13 +359,22 @@ public interface DatadropModelPackage extends EPackage {
 	int FILE__MANDATORY = 3;
 
 	/**
+	 * The feature id for the '<em><b>Extractor</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FILE__EXTRACTOR = 4;
+
+	/**
 	 * The number of structural features of the '<em>File</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FILE_FEATURE_COUNT = 4;
+	int FILE_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of operations of the '<em>File</em>' class.
@@ -531,6 +540,52 @@ public interface DatadropModelPackage extends EPackage {
 	 * @ordered
 	 */
 	int DATA_DROP_REPOSITORY_OPERATION_COUNT = REPOSITORY_INTERFACE_OPERATION_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link datadropModel.impl.ExtractorImpl <em>Extractor</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see datadropModel.impl.ExtractorImpl
+	 * @see datadropModel.impl.DatadropModelPackageImpl#getExtractor()
+	 * @generated
+	 */
+	int EXTRACTOR = 8;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTRACTOR__ID = 0;
+
+	/**
+	 * The feature id for the '<em><b>Mandatory Keys</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTRACTOR__MANDATORY_KEYS = 1;
+
+	/**
+	 * The number of structural features of the '<em>Extractor</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTRACTOR_FEATURE_COUNT = 2;
+
+	/**
+	 * The number of operations of the '<em>Extractor</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTRACTOR_OPERATION_COUNT = 0;
 
 	/**
 	 * Returns the meta object for class '{@link datadropModel.Project <em>Project</em>}'.
@@ -705,6 +760,17 @@ public interface DatadropModelPackage extends EPackage {
 	EAttribute getFile_Mandatory();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link datadropModel.File#getExtractor <em>Extractor</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Extractor</em>'.
+	 * @see datadropModel.File#getExtractor()
+	 * @see #getFile()
+	 * @generated
+	 */
+	EReference getFile_Extractor();
+
+	/**
 	 * Returns the meta object for class '{@link datadropModel.Credentials <em>Credentials</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -831,6 +897,38 @@ public interface DatadropModelPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getDataDropRepository_Profile();
+
+	/**
+	 * Returns the meta object for class '{@link datadropModel.Extractor <em>Extractor</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Extractor</em>'.
+	 * @see datadropModel.Extractor
+	 * @generated
+	 */
+	EClass getExtractor();
+
+	/**
+	 * Returns the meta object for the attribute '{@link datadropModel.Extractor#getId <em>Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Id</em>'.
+	 * @see datadropModel.Extractor#getId()
+	 * @see #getExtractor()
+	 * @generated
+	 */
+	EAttribute getExtractor_Id();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link datadropModel.Extractor#getMandatoryKeys <em>Mandatory Keys</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Mandatory Keys</em>'.
+	 * @see datadropModel.Extractor#getMandatoryKeys()
+	 * @see #getExtractor()
+	 * @generated
+	 */
+	EAttribute getExtractor_MandatoryKeys();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -992,6 +1090,14 @@ public interface DatadropModelPackage extends EPackage {
 		EAttribute FILE__MANDATORY = eINSTANCE.getFile_Mandatory();
 
 		/**
+		 * The meta object literal for the '<em><b>Extractor</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FILE__EXTRACTOR = eINSTANCE.getFile_Extractor();
+
+		/**
 		 * The meta object literal for the '{@link datadropModel.impl.CredentialsImpl <em>Credentials</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1094,6 +1200,32 @@ public interface DatadropModelPackage extends EPackage {
 		 * @generated
 		 */
 		EReference DATA_DROP_REPOSITORY__PROFILE = eINSTANCE.getDataDropRepository_Profile();
+
+		/**
+		 * The meta object literal for the '{@link datadropModel.impl.ExtractorImpl <em>Extractor</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see datadropModel.impl.ExtractorImpl
+		 * @see datadropModel.impl.DatadropModelPackageImpl#getExtractor()
+		 * @generated
+		 */
+		EClass EXTRACTOR = eINSTANCE.getExtractor();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EXTRACTOR__ID = eINSTANCE.getExtractor_Id();
+
+		/**
+		 * The meta object literal for the '<em><b>Mandatory Keys</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EXTRACTOR__MANDATORY_KEYS = eINSTANCE.getExtractor_MandatoryKeys();
 
 	}
 

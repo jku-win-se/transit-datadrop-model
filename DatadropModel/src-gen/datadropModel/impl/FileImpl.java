@@ -3,12 +3,15 @@
 package datadropModel.impl;
 
 import datadropModel.DatadropModelPackage;
+import datadropModel.Extractor;
 import datadropModel.File;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
@@ -24,6 +27,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link datadropModel.impl.FileImpl#getExtension <em>Extension</em>}</li>
  *   <li>{@link datadropModel.impl.FileImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link datadropModel.impl.FileImpl#isMandatory <em>Mandatory</em>}</li>
+ *   <li>{@link datadropModel.impl.FileImpl#getExtractor <em>Extractor</em>}</li>
  * </ul>
  *
  * @generated
@@ -108,6 +112,16 @@ public class FileImpl extends MinimalEObjectImpl.Container implements File {
 	 * @ordered
 	 */
 	protected boolean mandatory = MANDATORY_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getExtractor() <em>Extractor</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getExtractor()
+	 * @generated
+	 * @ordered
+	 */
+	protected Extractor extractor;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -220,6 +234,70 @@ public class FileImpl extends MinimalEObjectImpl.Container implements File {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Extractor getExtractor() {
+		return extractor;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetExtractor(Extractor newExtractor, NotificationChain msgs) {
+		Extractor oldExtractor = extractor;
+		extractor = newExtractor;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					DatadropModelPackage.FILE__EXTRACTOR, oldExtractor, newExtractor);
+			if (msgs == null)
+				msgs = notification;
+			else
+				msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setExtractor(Extractor newExtractor) {
+		if (newExtractor != extractor) {
+			NotificationChain msgs = null;
+			if (extractor != null)
+				msgs = ((InternalEObject) extractor).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - DatadropModelPackage.FILE__EXTRACTOR, null, msgs);
+			if (newExtractor != null)
+				msgs = ((InternalEObject) newExtractor).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - DatadropModelPackage.FILE__EXTRACTOR, null, msgs);
+			msgs = basicSetExtractor(newExtractor, msgs);
+			if (msgs != null)
+				msgs.dispatch();
+		} else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DatadropModelPackage.FILE__EXTRACTOR, newExtractor,
+					newExtractor));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case DatadropModelPackage.FILE__EXTRACTOR:
+			return basicSetExtractor(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -231,6 +309,8 @@ public class FileImpl extends MinimalEObjectImpl.Container implements File {
 			return getDescription();
 		case DatadropModelPackage.FILE__MANDATORY:
 			return isMandatory();
+		case DatadropModelPackage.FILE__EXTRACTOR:
+			return getExtractor();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -254,6 +334,9 @@ public class FileImpl extends MinimalEObjectImpl.Container implements File {
 			return;
 		case DatadropModelPackage.FILE__MANDATORY:
 			setMandatory((Boolean) newValue);
+			return;
+		case DatadropModelPackage.FILE__EXTRACTOR:
+			setExtractor((Extractor) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -279,6 +362,9 @@ public class FileImpl extends MinimalEObjectImpl.Container implements File {
 		case DatadropModelPackage.FILE__MANDATORY:
 			setMandatory(MANDATORY_EDEFAULT);
 			return;
+		case DatadropModelPackage.FILE__EXTRACTOR:
+			setExtractor((Extractor) null);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -299,6 +385,8 @@ public class FileImpl extends MinimalEObjectImpl.Container implements File {
 			return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
 		case DatadropModelPackage.FILE__MANDATORY:
 			return mandatory != MANDATORY_EDEFAULT;
+		case DatadropModelPackage.FILE__EXTRACTOR:
+			return extractor != null;
 		}
 		return super.eIsSet(featureID);
 	}

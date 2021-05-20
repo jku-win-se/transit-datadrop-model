@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link datadropModel.File#getExtension <em>Extension</em>}</li>
  *   <li>{@link datadropModel.File#getDescription <em>Description</em>}</li>
  *   <li>{@link datadropModel.File#isMandatory <em>Mandatory</em>}</li>
+ *   <li>{@link datadropModel.File#getExtractor <em>Extractor</em>}</li>
  * </ul>
  *
  * @see datadropModel.DatadropModelPackage#getFile()
@@ -111,5 +112,27 @@ public interface File extends EObject {
 	 * @generated
 	 */
 	void setMandatory(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Extractor</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Extractor</em>' containment reference.
+	 * @see #setExtractor(Extractor)
+	 * @see datadropModel.DatadropModelPackage#getFile_Extractor()
+	 * @model containment="true"
+	 * @generated
+	 */
+	Extractor getExtractor();
+
+	/**
+	 * Sets the value of the '{@link datadropModel.File#getExtractor <em>Extractor</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Extractor</em>' containment reference.
+	 * @see #getExtractor()
+	 * @generated
+	 */
+	void setExtractor(Extractor value);
 
 } // File

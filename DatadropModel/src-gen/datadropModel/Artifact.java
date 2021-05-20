@@ -76,7 +76,7 @@ public interface Artifact extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Files</em>' containment reference list.
 	 * @see datadropModel.DatadropModelPackage#getArtifact_Files()
-	 * @model containment="true"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	EList<File> getFiles();

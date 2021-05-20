@@ -28,6 +28,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datadropModel.ecore#//File/extension"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datadropModel.ecore#//File/description"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datadropModel.ecore#//File/mandatory"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference datadropModel.ecore#//File/extractor"/>
     </genClasses>
     <genClasses ecoreClass="datadropModel.ecore#//Credentials">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datadropModel.ecore#//Credentials/auth_token"/>
@@ -44,6 +45,10 @@
     </genClasses>
     <genClasses ecoreClass="datadropModel.ecore#//DataDropRepository">
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference datadropModel.ecore#//DataDropRepository/profile"/>
+    </genClasses>
+    <genClasses ecoreClass="datadropModel.ecore#//Extractor">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datadropModel.ecore#//Extractor/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datadropModel.ecore#//Extractor/mandatoryKeys"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

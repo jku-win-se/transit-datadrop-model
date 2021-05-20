@@ -70,6 +70,8 @@ public class DatadropModelFactoryImpl extends EFactoryImpl implements DatadropMo
 			return createProfile();
 		case DatadropModelPackage.DATA_DROP_REPOSITORY:
 			return createDataDropRepository();
+		case DatadropModelPackage.EXTRACTOR:
+			return createExtractor();
 		default:
 			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -150,6 +152,16 @@ public class DatadropModelFactoryImpl extends EFactoryImpl implements DatadropMo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Extractor createExtractor() {
+		ExtractorImpl extractor = new ExtractorImpl();
+		return extractor;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public DatadropModelPackage getDatadropModelPackage() {
 		return (DatadropModelPackage) getEPackage();
 	}
@@ -161,6 +173,7 @@ public class DatadropModelFactoryImpl extends EFactoryImpl implements DatadropMo
 	 * @generated
 	 */
 	//@Deprecated
+	@Deprecated
 	public static DatadropModelPackage getPackage() {
 		return DatadropModelPackage.eINSTANCE;
 	}

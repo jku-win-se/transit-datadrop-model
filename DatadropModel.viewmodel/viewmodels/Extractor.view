@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<org.eclipse.emf.ecp.view.model:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:org.eclipse.emf.ecp.view.model="http://org/eclipse/emf/ecp/view/model/1180" xmi:id="_SrrFsLk9EeuJI8TI-rgeYA" name="Extractor">
+  <rootEClass href="http://www.example.org/datadropModel#//Extractor"/>
+  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_SrwlQLk9EeuJI8TI-rgeYA" name="Control id">
+    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_SrwlQbk9EeuJI8TI-rgeYA">
+      <domainModelEFeature xsi:type="ecore:EAttribute" href="http://www.example.org/datadropModel#//Extractor/id"/>
+    </domainModelReference>
+  </children>
+  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_SrwlQrk9EeuJI8TI-rgeYA" name="Control mandatoryKeys">
+    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_SrwlQ7k9EeuJI8TI-rgeYA">
+      <domainModelEFeature xsi:type="ecore:EAttribute" href="http://www.example.org/datadropModel#//Extractor/mandatoryKeys"/>
+    </domainModelReference>
+  </children>
+  <ecorePaths>/DatadropModel/model/datadropModel.ecore</ecorePaths>
+</org.eclipse.emf.ecp.view.model:View>

@@ -7,6 +7,7 @@ import datadropModel.Credentials;
 import datadropModel.DataDropRepository;
 import datadropModel.DatadropModelFactory;
 import datadropModel.DatadropModelPackage;
+import datadropModel.Extractor;
 import datadropModel.File;
 import datadropModel.Profile;
 import datadropModel.Project;
@@ -82,6 +83,13 @@ public class DatadropModelPackageImpl extends EPackageImpl implements DatadropMo
 	 * @generated
 	 */
 	private EClass dataDropRepositoryEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass extractorEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -296,6 +304,15 @@ public class DatadropModelPackageImpl extends EPackageImpl implements DatadropMo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getFile_Extractor() {
+		return (EReference) fileEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getCredentials() {
 		return credentialsEClass;
 	}
@@ -404,6 +421,33 @@ public class DatadropModelPackageImpl extends EPackageImpl implements DatadropMo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getExtractor() {
+		return extractorEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getExtractor_Id() {
+		return (EAttribute) extractorEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getExtractor_MandatoryKeys() {
+		return (EAttribute) extractorEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public DatadropModelFactory getDatadropModelFactory() {
 		return (DatadropModelFactory) getEFactoryInstance();
 	}
@@ -447,6 +491,7 @@ public class DatadropModelPackageImpl extends EPackageImpl implements DatadropMo
 		createEAttribute(fileEClass, FILE__EXTENSION);
 		createEAttribute(fileEClass, FILE__DESCRIPTION);
 		createEAttribute(fileEClass, FILE__MANDATORY);
+		createEReference(fileEClass, FILE__EXTRACTOR);
 
 		credentialsEClass = createEClass(CREDENTIALS);
 		createEAttribute(credentialsEClass, CREDENTIALS__AUTH_TOKEN);
@@ -463,6 +508,10 @@ public class DatadropModelPackageImpl extends EPackageImpl implements DatadropMo
 
 		dataDropRepositoryEClass = createEClass(DATA_DROP_REPOSITORY);
 		createEReference(dataDropRepositoryEClass, DATA_DROP_REPOSITORY__PROFILE);
+
+		extractorEClass = createEClass(EXTRACTOR);
+		createEAttribute(extractorEClass, EXTRACTOR__ID);
+		createEAttribute(extractorEClass, EXTRACTOR__MANDATORY_KEYS);
 	}
 
 	/**
@@ -522,7 +571,7 @@ public class DatadropModelPackageImpl extends EPackageImpl implements DatadropMo
 				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getArtifact_Name(), ecorePackage.getEString(), "name", null, 0, 1, Artifact.class, !IS_TRANSIENT,
 				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getArtifact_Files(), this.getFile(), null, "files", null, 0, -1, Artifact.class, !IS_TRANSIENT,
+		initEReference(getArtifact_Files(), this.getFile(), null, "files", null, 1, -1, Artifact.class, !IS_TRANSIENT,
 				!IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED,
 				IS_ORDERED);
 
@@ -535,6 +584,9 @@ public class DatadropModelPackageImpl extends EPackageImpl implements DatadropMo
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFile_Mandatory(), ecorePackage.getEBoolean(), "mandatory", null, 0, 1, File.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFile_Extractor(), this.getExtractor(), null, "extractor", null, 0, 1, File.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(credentialsEClass, Credentials.class, "Credentials", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -545,7 +597,7 @@ public class DatadropModelPackageImpl extends EPackageImpl implements DatadropMo
 		initEClass(profileEClass, Profile.class, "Profile", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getProfile_Name(), ecorePackage.getEString(), "name", null, 0, 1, Profile.class, !IS_TRANSIENT,
 				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getProfile_Mandatory_files(), this.getFile(), null, "mandatory_files", null, 0, -1,
+		initEReference(getProfile_Mandatory_files(), this.getFile(), null, "mandatory_files", null, 1, -1,
 				Profile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -569,6 +621,14 @@ public class DatadropModelPackageImpl extends EPackageImpl implements DatadropMo
 		initEReference(getDataDropRepository_Profile(), this.getProfile(), null, "profile", null, 0, -1,
 				DataDropRepository.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(extractorEClass, Extractor.class, "Extractor", !IS_ABSTRACT, !IS_INTERFACE,
+				IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getExtractor_Id(), ecorePackage.getEInt(), "id", null, 1, 1, Extractor.class, !IS_TRANSIENT,
+				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getExtractor_MandatoryKeys(), ecorePackage.getEString(), "mandatoryKeys", null, 0, -1,
+				Extractor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
+				!IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

@@ -53,7 +53,7 @@ public interface Profile extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Mandatory files</em>' reference list.
 	 * @see datadropModel.DatadropModelPackage#getProfile_Mandatory_files()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
 	EList<File> getMandatory_files();

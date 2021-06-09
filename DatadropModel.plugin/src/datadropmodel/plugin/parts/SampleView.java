@@ -3,19 +3,26 @@ package datadropmodel.plugin.parts;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
+import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.eclipse.emf.ecp.common.spi.EMFUtils;
 import org.eclipse.emf.ecp.ui.view.ECPRendererException;
 import org.eclipse.emf.ecp.ui.view.swt.ECPSWTView;
 import org.eclipse.emf.ecp.ui.view.swt.ECPSWTViewRenderer;
@@ -36,7 +43,10 @@ import org.emfjson.jackson.resource.JsonResourceFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import datadropModel.DatadropModelFactory;
 import datadropModel.DatadropModelPackage;
+import datadropModel.MandatoryFile;
+import datadropModel.Profile;
 
 /***
  * 
@@ -423,14 +433,81 @@ public class SampleView {
 	 * @throws IOException When the file could't be saved.
 	 */
 	private void exportToJson(String fileName, EObject ecoreViewModelObj) throws IOException {
+		/*
+		 * TODO: mandatory files richtig serialisieren - name wird zu file - artifact
+		 * als type
+		 * 
+		 * IDEE: besser wäre es das zu modellieren, vllt kann man den Type sich iwie
+		 * rückwärtig rausziehen; ansonsten muss man das ganze händisch deserialisieren
+		 * und die dateien abspeichern
+		 * 
+		 * 
+		 * 
+		 * 
+		 * PLAN: über alle mandatory_files iterieren und ein neues EObject stattdessen
+		 * einfügen, dass die geforderten daten hat; den artifact name bekommt man über
+		 * den eContainer
+		 */
+
 		LOGGER.info("-----exporting to JSON-----");
 		ResourceSet resourceSet = new ResourceSetImpl();
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("json", new JsonResourceFactory());
 		var jsonResource = resourceSet.createResource(URI.createFileURI(fileName));
 
 		jsonResource.getContents().add(ecoreViewModelObj);
+
+		TreeIterator<EObject> projIterator = jsonResource.getAllContents();
+		EObject currObj;
+		while (projIterator.hasNext()) {
+			currObj = projIterator.next();
+			if (currObj instanceof Profile) {
+
+				List<MandatoryFile> newFiles = new ArrayList<>();
+
+				// found a profile, iterate over the containing mandatory files
+				for (EObject mandatoryFile : currObj.eCrossReferences()) {
+
+					// get required values of old file
+					String type = null; // artifact ID
+					String file = null; // file name (ID)
+					String extension = null; // file extension
+
+					for (EAttribute attribute : mandatoryFile.eClass().getEAllAttributes()) {
+						if (attribute.getName().equals("name")) {
+							file = mandatoryFile.eGet(attribute).toString();
+						} else if (attribute.getName().equals("extension")) {
+							extension = mandatoryFile.eGet(attribute).toString();
+						}
+					}
+
+					// if not set already
+					if (type == null) {
+						// artifact ID is in surrounding container
+						for (EAttribute attr : mandatoryFile.eContainer().eClass().getEAllAttributes()) {
+							if (attr.getName().equals("type")) { // artifact type
+								type = mandatoryFile.eGet(attr).toString();
+								break;
+							}
+						}
+					}
+
+					LOGGER.info("MandatoryFile: type={}, file={}, extension={}", type, file, extension);
+
+					// create the new file
+					var newMandFileObj = DatadropModelFactory.eINSTANCE.createMandatoryFile();
+					newMandFileObj.setType(type);
+					newMandFileObj.setFile(file);
+					newMandFileObj.setExtension(extension);
+					newFiles.add(newMandFileObj);
+				} // end for
+
+				copyEObject(newFiles, currObj);
+
+				// replace the file //probably empty?
+			} // end if profile
+		} // end while
 		jsonResource.save(null);
-	}
+	} // end func
 
 	/***
 	 * Creates a filepath with filename that consists of the browsed filepath, a
@@ -540,6 +617,18 @@ public class SampleView {
 			path = stringBuilder.toString();
 		}
 		return "file:" + path;
+	}
+
+	/**
+	 * Copies all the properties from one object to anoter.
+	 *
+	 * @param source The object to copy from.
+	 * @param target The object to copy to.
+	 */
+	public static void copyEObject(EObject source, EObject target) {
+		for (EStructuralFeature feature : source.eClass().getEStructuralFeatures()) {
+			target.eSet(feature, source.eGet(feature));
+		}
 	}
 
 }

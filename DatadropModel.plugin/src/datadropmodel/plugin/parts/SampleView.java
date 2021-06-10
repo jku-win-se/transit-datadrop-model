@@ -43,6 +43,7 @@ import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
@@ -399,9 +400,7 @@ public class SampleView {
 		String fileName = getFileName();
 
 		// only if the XMI checkbox is selected
-		if (
-//				doXMIExport
-		false) {
+		if (doXMIExport) {
 			try {
 				exportToXMI(fileName + ".xmi", ecoreViewModelObj);
 			} catch (IOException e) {
@@ -475,29 +474,39 @@ public class SampleView {
 				for (JsonNode referenceToFile : refListNode) {
 
 					// the reference as string
-					String refAsString = referenceToFile.textValue();
+					var refAsString = referenceToFile.textValue();
 
-					// reset tempvar
+					// reset
 					mandatoryFile = new MandatoryFile(null, null, null);
 
 					// get the realFile
 					navigateToJsonNode(rootNode, refAsString, true);
 
 					// create a JsonNode
-					JsonNode realFileJsonNode = getMandatoryFileJsonNode(mandatoryFile.getType(),
-							mandatoryFile.getFile(), mandatoryFile.getExtension());
+					var realFileJsonNode = getMandatoryFileJsonNode(mandatoryFile.getType(), mandatoryFile.getFile(),
+							mandatoryFile.getExtension());
 
 					// add it to the list
 					newNodes.add(realFileJsonNode);
 				}
 
-				// TODO delete old ref nodes
+				// delete old reference nodes
+				if (profileNode instanceof ObjectNode) {
+					ObjectNode object = (ObjectNode) profileNode;
+					object.remove(MANDATORY_FILES_JSON_ID);
+				}
 
-				// TODO add the new nodes
+				// add the new nodes
+				var arrayNode = objectMapper.convertValue(newNodes, ArrayNode.class);
+				((ObjectNode) profileNode).putArray(MANDATORY_FILES_JSON_ID).add(arrayNode);
+
+				// save the new JSON object
+				var file = new File(fileName);
+				objectMapper.writeValue(file, rootNode);
 			}
 		}
 
-	} // end func
+	}
 
 	private void navigateToJsonNode(JsonNode rootNode, String refAsString, boolean isFirst) {
 		String[] tempArr = refAsString.substring(1).split("/");
@@ -518,7 +527,7 @@ public class SampleView {
 				mandatoryFile.setFile(rootNode.get("name").textValue());
 				LOGGER.info("file={}", mandatoryFile.getFile());
 				mandatoryFile.setExtension(rootNode.get(EXTENSION_STRING_ID).textValue());
-				LOGGER.info("extension={}", mandatoryFile.getExtension());
+				LOGGER.info("extension={}\n", mandatoryFile.getExtension());
 				return;
 			} else if (key.equals("artifact")) {
 				// set the type
@@ -531,7 +540,7 @@ public class SampleView {
 	}
 
 	private JsonNode getMandatoryFileJsonNode(String type, String file, String extension) {
-		ObjectNode newNode = JsonNodeFactory.instance.objectNode();
+		var newNode = JsonNodeFactory.instance.objectNode();
 		newNode.put(TYPE_STRING_ID, type);
 		newNode.put(FILE_STRING_ID, file);
 		newNode.put(EXTENSION_STRING_ID, extension);

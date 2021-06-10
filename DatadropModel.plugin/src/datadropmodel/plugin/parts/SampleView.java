@@ -2,19 +2,18 @@ package datadropmodel.plugin.parts;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
-import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -22,7 +21,6 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
-import org.eclipse.emf.ecp.common.spi.EMFUtils;
 import org.eclipse.emf.ecp.ui.view.ECPRendererException;
 import org.eclipse.emf.ecp.ui.view.swt.ECPSWTView;
 import org.eclipse.emf.ecp.ui.view.swt.ECPSWTViewRenderer;
@@ -43,10 +41,12 @@ import org.emfjson.jackson.resource.JsonResourceFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import datadropModel.DatadropModelFactory;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import datadropModel.DatadropModelPackage;
-import datadropModel.MandatoryFile;
-import datadropModel.Profile;
 
 /***
  * 
@@ -55,6 +55,10 @@ import datadropModel.Profile;
  */
 public class SampleView {
 
+	private static final String FILE_STRING_ID = "file";
+	private static final String MANDATORY_FILES_JSON_ID = "mandatory_files";
+	private static final String EXTENSION_STRING_ID = "extension";
+	private static final String TYPE_STRING_ID = "type";
 	private static final Logger LOGGER = LoggerFactory.getLogger(SampleView.class);
 	private static final String OUTPUT_DIR_STRING_PREFIX = "Output directory: ";
 	private static final String NO_OUTPUT_DIR_STRING = OUTPUT_DIR_STRING_PREFIX + "No directory specified!";
@@ -71,6 +75,7 @@ public class SampleView {
 	private Group exportMenuGroup;
 	private Group backNavMenuGroup;
 	private ECPSWTView modelEditorView;
+	private MandatoryFile mandatoryFile;
 
 	/***
 	 * Creates an empty EObject of the Project ecore Object instance.
@@ -394,7 +399,9 @@ public class SampleView {
 		String fileName = getFileName();
 
 		// only if the XMI checkbox is selected
-		if (doXMIExport) {
+		if (
+//				doXMIExport
+		false) {
 			try {
 				exportToXMI(fileName + ".xmi", ecoreViewModelObj);
 			} catch (IOException e) {
@@ -433,21 +440,6 @@ public class SampleView {
 	 * @throws IOException When the file could't be saved.
 	 */
 	private void exportToJson(String fileName, EObject ecoreViewModelObj) throws IOException {
-		/*
-		 * TODO: mandatory files richtig serialisieren - name wird zu file - artifact
-		 * als type
-		 * 
-		 * IDEE: besser wäre es das zu modellieren, vllt kann man den Type sich iwie
-		 * rückwärtig rausziehen; ansonsten muss man das ganze händisch deserialisieren
-		 * und die dateien abspeichern
-		 * 
-		 * 
-		 * 
-		 * 
-		 * PLAN: über alle mandatory_files iterieren und ein neues EObject stattdessen
-		 * einfügen, dass die geforderten daten hat; den artifact name bekommt man über
-		 * den eContainer
-		 */
 
 		LOGGER.info("-----exporting to JSON-----");
 		ResourceSet resourceSet = new ResourceSetImpl();
@@ -456,58 +448,95 @@ public class SampleView {
 
 		jsonResource.getContents().add(ecoreViewModelObj);
 
-		TreeIterator<EObject> projIterator = jsonResource.getAllContents();
-		EObject currObj;
-		while (projIterator.hasNext()) {
-			currObj = projIterator.next();
-			if (currObj instanceof Profile) {
+		jsonResource.save(null); // save to file
 
-				List<MandatoryFile> newFiles = new ArrayList<>();
+		// read JSON file as string
+		var jsonString = Files.readString(Paths.get(fileName));
+		LOGGER.info("JSON File = {}", jsonString);
 
-				// found a profile, iterate over the containing mandatory files
-				for (EObject mandatoryFile : currObj.eCrossReferences()) {
+		// map file to JsonNode
+		var objectMapper = new ObjectMapper();
+		var rootNode = objectMapper.readTree(jsonString);
 
-					// get required values of old file
-					String type = null; // artifact ID
-					String file = null; // file name (ID)
-					String extension = null; // file extension
+		// check if there are mandatory files that need to be replaced
+		var mandFileJsonNode = rootNode.findValue(MANDATORY_FILES_JSON_ID);
+		if (mandFileJsonNode == null || mandFileJsonNode.isEmpty() || mandFileJsonNode.size() == 0) {
+			LOGGER.info("No mandatory files found!");
+		} else {
+			// iterate over profiles
 
-					for (EAttribute attribute : mandatoryFile.eClass().getEAllAttributes()) {
-						if (attribute.getName().equals("name")) {
-							file = mandatoryFile.eGet(attribute).toString();
-						} else if (attribute.getName().equals("extension")) {
-							extension = mandatoryFile.eGet(attribute).toString();
-						}
-					}
+			// get current profiles
+			var profiles = rootNode.findValue("profile");
+			for (JsonNode profileNode : profiles) {
 
-					// if not set already
-					if (type == null) {
-						// artifact ID is in surrounding container
-						for (EAttribute attr : mandatoryFile.eContainer().eClass().getEAllAttributes()) {
-							if (attr.getName().equals("type")) { // artifact type
-								type = mandatoryFile.eGet(attr).toString();
-								break;
-							}
-						}
-					}
+				List<JsonNode> refListNode = profileNode.findValues("$ref");
+				List<JsonNode> newNodes = new ArrayList<>();
 
-					LOGGER.info("MandatoryFile: type={}, file={}, extension={}", type, file, extension);
+				for (JsonNode referenceToFile : refListNode) {
 
-					// create the new file
-					var newMandFileObj = DatadropModelFactory.eINSTANCE.createMandatoryFile();
-					newMandFileObj.setType(type);
-					newMandFileObj.setFile(file);
-					newMandFileObj.setExtension(extension);
-					newFiles.add(newMandFileObj);
-				} // end for
+					// the reference as string
+					String refAsString = referenceToFile.textValue();
 
-				copyEObject(newFiles, currObj);
+					// reset tempvar
+					mandatoryFile = new MandatoryFile(null, null, null);
 
-				// replace the file //probably empty?
-			} // end if profile
-		} // end while
-		jsonResource.save(null);
+					// get the realFile
+					navigateToJsonNode(rootNode, refAsString, true);
+
+					// create a JsonNode
+					JsonNode realFileJsonNode = getMandatoryFileJsonNode(mandatoryFile.getType(),
+							mandatoryFile.getFile(), mandatoryFile.getExtension());
+
+					// add it to the list
+					newNodes.add(realFileJsonNode);
+				}
+
+				// TODO delete old ref nodes
+
+				// TODO add the new nodes
+			}
+		}
+
 	} // end func
+
+	private void navigateToJsonNode(JsonNode rootNode, String refAsString, boolean isFirst) {
+		String[] tempArr = refAsString.substring(1).split("/");
+		String currRef = tempArr[0];
+		if (isFirst && currRef.isBlank()) {
+			// it is the root node, just go one iteration further
+			navigateToJsonNode(rootNode, refAsString.substring(1), false);
+		} else {
+			var key = currRef.substring(1, currRef.indexOf(".")); // @repositories.0 -----> repositories
+			var idx = Integer.parseInt(currRef.substring(currRef.indexOf(".") + 1)); // @repositories.0 -----> 0
+
+			// go to next node
+			rootNode = rootNode.get(key).get(idx);
+
+			// check if current node yields data
+			if (key.equals("files")) {
+				// set filename and extension and return
+				mandatoryFile.setFile(rootNode.get("name").textValue());
+				LOGGER.info("file={}", mandatoryFile.getFile());
+				mandatoryFile.setExtension(rootNode.get(EXTENSION_STRING_ID).textValue());
+				LOGGER.info("extension={}", mandatoryFile.getExtension());
+				return;
+			} else if (key.equals("artifact")) {
+				// set the type
+				mandatoryFile.setType(rootNode.get(TYPE_STRING_ID).textValue());
+				LOGGER.info("type={}", mandatoryFile.getType());
+			}
+			navigateToJsonNode(rootNode, refAsString.substring(refAsString.indexOf("/", 1)), false); // /@repositories.0/@artifact.0/@files.2
+
+		}
+	}
+
+	private JsonNode getMandatoryFileJsonNode(String type, String file, String extension) {
+		ObjectNode newNode = JsonNodeFactory.instance.objectNode();
+		newNode.put(TYPE_STRING_ID, type);
+		newNode.put(FILE_STRING_ID, file);
+		newNode.put(EXTENSION_STRING_ID, extension);
+		return newNode;
+	}
 
 	/***
 	 * Creates a filepath with filename that consists of the browsed filepath, a

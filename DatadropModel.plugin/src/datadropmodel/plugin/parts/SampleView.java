@@ -566,19 +566,24 @@ public class SampleView {
 
 			// check if current node yields data
 			if (key.equals("files")) {
-				// set filename and extension and return
-				mandatoryFile.setFile(rootNode.get("name").textValue());
+				// set filename and extension - return afterwards 
+				if (rootNode.get("name") != null) {
+					mandatoryFile.setFile(rootNode.get("name").textValue());
+				}
 				LOGGER.info("file={}", mandatoryFile.getFile());
-				mandatoryFile.setExtension(rootNode.get(EXTENSION_STRING_ID).textValue());
+				if (rootNode.get(EXTENSION_STRING_ID) != null) {
+					mandatoryFile.setExtension(rootNode.get(EXTENSION_STRING_ID).textValue());
+				}
 				LOGGER.info("extension={}\n", mandatoryFile.getExtension());
 				return;
 			} else if (key.equals("artifact")) {
 				// set the type
-				mandatoryFile.setType(rootNode.get(TYPE_STRING_ID).textValue());
+				if (rootNode.get(TYPE_STRING_ID) != null) {
+					mandatoryFile.setType(rootNode.get(TYPE_STRING_ID).textValue());
+				}
 				LOGGER.info("type={}", mandatoryFile.getType());
 			}
 			navigateToJsonNode(rootNode, refAsString.substring(refAsString.indexOf("/", 1)), false);
-
 		}
 	}
 

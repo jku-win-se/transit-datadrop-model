@@ -77,6 +77,7 @@ public class SampleView {
 	private Group backNavMenuGroup;
 	private ECPSWTView modelEditorView;
 	private MandatoryFile mandatoryFile;
+	private boolean modelContainsUnresolvableMandFile;
 
 	/***
 	 * Creates an empty EObject of the Project ecore Object instance.
@@ -376,7 +377,20 @@ public class SampleView {
 	protected void showErrorDialog(String msg) {
 		var errorShell = new Shell(content.getShell());
 		MessageDialog.openError(errorShell, "Error", msg);
-		LOGGER.info(msg);
+		String logMsg = msg.replace("\n", " ").replace("\r", " ");
+		LOGGER.info(logMsg);
+	}
+
+	/***
+	 * Shows an error dialog with a specified message
+	 * 
+	 * @param msg the message that shall be displayed in the dialog.
+	 */
+	protected void showWarningDialog(String msg) {
+		var errorShell = new Shell(content.getShell());
+		MessageDialog.openWarning(errorShell, "Warning", msg);
+		String logMsg = msg.replace("\n", " ").replace("\r", " ");
+		LOGGER.info(logMsg);
 	}
 
 	/***
@@ -417,6 +431,19 @@ public class SampleView {
 				LOGGER.error("Unable to save EObject data to JSON file");
 				e.printStackTrace();
 			}
+		}
+
+		// inform about unresolved mandatory files
+		if (modelContainsUnresolvableMandFile) {
+			showWarningDialog(
+					"""
+							At least one of the mandatory files added to the profiles is not referenced in any artifact.
+							Make sure that you reference only existing files as mandatory files in the profiles instead of adding new ones!
+
+							Unresolvable files have been ignored in the JSON export.""");
+
+			// reset boolean
+			modelContainsUnresolvableMandFile = false;
 		}
 
 		// show a dialog that the export finished
@@ -476,6 +503,11 @@ public class SampleView {
 					// the reference as string
 					var refAsString = referenceToFile.textValue();
 
+					// check if the mandatory file is a new added file without actual reference
+					if (refAsString.contains("VIRTAUAL_URI")) {
+						modelContainsUnresolvableMandFile = true;
+						continue;
+					}
 					// reset
 					mandatoryFile = new MandatoryFile(null, null, null);
 
@@ -488,6 +520,7 @@ public class SampleView {
 
 					// add it to the list
 					newNodes.add(realFileJsonNode);
+
 				}
 
 				// delete old reference nodes
@@ -508,6 +541,16 @@ public class SampleView {
 
 	}
 
+	/***
+	 * Searches for the real object of a given reference in a JsonNode and saves the
+	 * data into into the <code>mandatoryFile</code> field.
+	 * 
+	 * @param rootNode    the current JsonNode root object
+	 * @param refAsString the reference string, e.g.
+	 *                    <code>//@repositories.0/@artifact.0/@files.2</code>
+	 * @param isFirst     a boolean indicating if this is the initial root object /
+	 *                    indicating if this is the first iteration
+	 */
 	private void navigateToJsonNode(JsonNode rootNode, String refAsString, boolean isFirst) {
 		String[] tempArr = refAsString.substring(1).split("/");
 		String currRef = tempArr[0];
@@ -534,11 +577,19 @@ public class SampleView {
 				mandatoryFile.setType(rootNode.get(TYPE_STRING_ID).textValue());
 				LOGGER.info("type={}", mandatoryFile.getType());
 			}
-			navigateToJsonNode(rootNode, refAsString.substring(refAsString.indexOf("/", 1)), false); // /@repositories.0/@artifact.0/@files.2
+			navigateToJsonNode(rootNode, refAsString.substring(refAsString.indexOf("/", 1)), false);
 
 		}
 	}
 
+	/***
+	 * Creates a JsonNode representation of a MandatoryFile object.
+	 * 
+	 * @param type      the mandatory file type
+	 * @param file      the mandatory file name
+	 * @param extension the mandatory file extension
+	 * @return
+	 */
 	private JsonNode getMandatoryFileJsonNode(String type, String file, String extension) {
 		var newNode = JsonNodeFactory.instance.objectNode();
 		newNode.put(TYPE_STRING_ID, type);

@@ -1,5 +1,11 @@
 package datadropmodel.plugin.parts;
 
+/***
+ * Helper class for temporary storing mandatory file representations.
+ * 
+ * @author Marco
+ *
+ */
 public class MandatoryFile {
 
 	private String type;
@@ -36,6 +42,5 @@ public class MandatoryFile {
 	public void setExtension(String extension) {
 		this.extension = extension;
 	}
-	
-	
+
 }

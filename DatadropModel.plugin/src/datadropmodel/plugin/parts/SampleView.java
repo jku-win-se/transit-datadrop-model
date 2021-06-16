@@ -588,7 +588,7 @@ public class SampleView {
 	 * @param type      the mandatory file type
 	 * @param file      the mandatory file name
 	 * @param extension the mandatory file extension
-	 * @return
+	 * @return a JsonNode representation of the MandatoryFile
 	 */
 	private JsonNode getMandatoryFileJsonNode(String type, String file, String extension) {
 		var newNode = JsonNodeFactory.instance.objectNode();

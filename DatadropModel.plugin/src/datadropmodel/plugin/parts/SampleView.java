@@ -325,12 +325,15 @@ public class SampleView {
 
 			// update label
 			dirLabel.setText(OUTPUT_DIR_STRING_PREFIX + outputDirPath);
-			while (!tempShell.isDisposed()) {
+			while (!tempShell.isDisposed() && !tempShell.getDisplay().isDisposed()) {
 				if (!tempShell.getDisplay().readAndDispatch()) {
 					tempShell.getDisplay().sleep();
 				}
 			}
-			tempShell.getDisplay().dispose();
+			
+			if (!tempShell.getDisplay().isDisposed()) {				
+				tempShell.getDisplay().dispose();
+			}
 		});
 
 		// create XMI export checkbox

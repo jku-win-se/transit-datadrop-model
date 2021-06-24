@@ -27,17 +27,19 @@
         <setEntry value="com.fasterxml.jackson.core.jackson-core*2.12.1.v20210128-1726@default:default"/>
         <setEntry value="com.fasterxml.jackson.core.jackson-databind*2.12.1.v20210128-1726@default:default"/>
         <setEntry value="com.ibm.icu@default:default"/>
-        <setEntry value="com.sun.jna.platform@default:default"/>
-        <setEntry value="com.sun.jna@default:default"/>
+        <setEntry value="com.sun.jna*4.5.1.v20190425-1842@default:default"/>
+        <setEntry value="com.sun.jna*5.8.0.v20210503-0343@default:default"/>
+        <setEntry value="com.sun.jna.platform*4.5.1.v20190425-1842@default:default"/>
+        <setEntry value="com.sun.jna.platform*5.8.0.v20210406-1004@default:default"/>
         <setEntry value="javax.annotation@default:default"/>
         <setEntry value="javax.el@default:default"/>
         <setEntry value="javax.inject@default:default"/>
         <setEntry value="javax.servlet.jsp@default:default"/>
         <setEntry value="javax.servlet@default:default"/>
         <setEntry value="org.apache.batik.constants@default:default"/>
-        <setEntry value="org.apache.batik.css*1.13.0.v20200622-2037@default:default"/>
+        <setEntry value="org.apache.batik.css@default:default"/>
         <setEntry value="org.apache.batik.i18n@default:default"/>
-        <setEntry value="org.apache.batik.util*1.13.0.v20200622-2037@default:default"/>
+        <setEntry value="org.apache.batik.util@default:default"/>
         <setEntry value="org.apache.commons.io@default:default"/>
         <setEntry value="org.apache.commons.jxpath@default:default"/>
         <setEntry value="org.apache.commons.logging@default:default"/>
@@ -46,10 +48,9 @@
         <setEntry value="org.apache.felix.gogo.shell@default:default"/>
         <setEntry value="org.apache.felix.scr@1:true"/>
         <setEntry value="org.apache.jasper.glassfish@default:default"/>
-        <setEntry value="org.apache.log4j@default:default"/>
-        <setEntry value="org.apache.lucene.analyzers-common*8.4.1.v20200122-1459@default:default"/>
+        <setEntry value="org.apache.lucene.analyzers-common@default:default"/>
         <setEntry value="org.apache.lucene.analyzers-smartcn@default:default"/>
-        <setEntry value="org.apache.lucene.core*8.4.1.v20200122-1459@default:default"/>
+        <setEntry value="org.apache.lucene.core@default:default"/>
         <setEntry value="org.apache.xmlgraphics@default:default"/>
         <setEntry value="org.eclipse.ant.core@default:default"/>
         <setEntry value="org.eclipse.compare.core@default:default"/>
@@ -320,7 +321,6 @@
         <setEntry value="org.eclipse.ui.workbench@default:default"/>
         <setEntry value="org.eclipse.ui@default:default"/>
         <setEntry value="org.eclipse.urischeme@default:default"/>
-        <setEntry value="org.eclipse.xtext.logging@default:false"/>
         <setEntry value="org.emfjson.core@default:default"/>
         <setEntry value="org.emfjson.jackson@default:default"/>
         <setEntry value="org.sat4j.core@default:default"/>
@@ -338,6 +338,7 @@
         <setEntry value="DatadropModel.plugin@default:default"/>
         <setEntry value="DatadropModel.viewmodel@default:default"/>
         <setEntry value="DatadropModel@default:default"/>
+        <setEntry value="at.jku.se.datadrop.editor.product@default:default"/>
     </setAttribute>
     <booleanAttribute key="show_selected_only" value="false"/>
     <stringAttribute key="templateConfig" value="${target_home}\configuration\config.ini"/>

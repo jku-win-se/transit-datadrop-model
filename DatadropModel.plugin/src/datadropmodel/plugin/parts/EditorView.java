@@ -30,12 +30,14 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.program.Program;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Shell;
 import org.emfjson.jackson.resource.JsonResourceFactory;
 import org.slf4j.Logger;
@@ -120,7 +122,7 @@ public class EditorView {
 	 */
 	private void showMainMenu() {
 		mainMenuGroup = new Group(content, SWT.NONE);
-		mainMenuGroup.setLayoutData(GD_FILLED);
+		mainMenuGroup.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, true));
 		mainMenuGroup.setLayout(new GridLayout(2, true));
 		mainMenuGroup.setText("Main Menu");
 
@@ -130,7 +132,6 @@ public class EditorView {
 
 		// add import button
 		final var importXMIButton = new Button(mainMenuGroup, SWT.PUSH);
-		importXMIButton.setLayoutData(GD_CENTERED);
 		importXMIButton.setText("    Import XMI    ");
 
 		// import button click event
@@ -185,7 +186,6 @@ public class EditorView {
 
 		// new model button
 		final var newModelButton = new Button(mainMenuGroup, SWT.PUSH);
-		newModelButton.setLayoutData(GD_CENTERED);
 		newModelButton.setText("    Create new Model    ");
 		newModelButton.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -211,6 +211,23 @@ public class EditorView {
 					e.printStackTrace();
 				}
 			}
+		});
+
+		// help documentation
+		var helpLabel = new Label(mainMenuGroup, SWT.NONE);
+		helpLabel.setText("Documentation:");
+
+		var helpLink = new Link(mainMenuGroup, SWT.PUSH);
+		helpLink.setText("<a href=\"https://github.com/jku-win-se/transit-datadrop-model#readme\">GitHub Link</a>");
+
+		// Event handling when users click on links.
+		helpLink.addSelectionListener(new SelectionAdapter() {
+
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				Program.launch("https://github.com/jku-win-se/transit-datadrop-model#readme");
+			}
+
 		});
 
 		content.layout(true, true);

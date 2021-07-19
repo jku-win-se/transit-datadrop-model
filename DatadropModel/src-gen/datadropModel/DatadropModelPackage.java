@@ -515,13 +515,13 @@ public interface DatadropModelPackage extends EPackage {
 	int DATA_DROP_REPOSITORY__CREDENTIALS = REPOSITORY_INTERFACE__CREDENTIALS;
 
 	/**
-	 * The feature id for the '<em><b>Profile</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Profiles</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DATA_DROP_REPOSITORY__PROFILE = REPOSITORY_INTERFACE_FEATURE_COUNT + 0;
+	int DATA_DROP_REPOSITORY__PROFILES = REPOSITORY_INTERFACE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Data Drop Repository</em>' class.
@@ -888,15 +888,15 @@ public interface DatadropModelPackage extends EPackage {
 	EClass getDataDropRepository();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link datadropModel.DataDropRepository#getProfile <em>Profile</em>}'.
+	 * Returns the meta object for the containment reference list '{@link datadropModel.DataDropRepository#getProfiles <em>Profiles</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Profile</em>'.
-	 * @see datadropModel.DataDropRepository#getProfile()
+	 * @return the meta object for the containment reference list '<em>Profiles</em>'.
+	 * @see datadropModel.DataDropRepository#getProfiles()
 	 * @see #getDataDropRepository()
 	 * @generated
 	 */
-	EReference getDataDropRepository_Profile();
+	EReference getDataDropRepository_Profiles();
 
 	/**
 	 * Returns the meta object for class '{@link datadropModel.Extractor <em>Extractor</em>}'.
@@ -1194,12 +1194,12 @@ public interface DatadropModelPackage extends EPackage {
 		EClass DATA_DROP_REPOSITORY = eINSTANCE.getDataDropRepository();
 
 		/**
-		 * The meta object literal for the '<em><b>Profile</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Profiles</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference DATA_DROP_REPOSITORY__PROFILE = eINSTANCE.getDataDropRepository_Profile();
+		EReference DATA_DROP_REPOSITORY__PROFILES = eINSTANCE.getDataDropRepository_Profiles();
 
 		/**
 		 * The meta object literal for the '{@link datadropModel.impl.ExtractorImpl <em>Extractor</em>}' class.

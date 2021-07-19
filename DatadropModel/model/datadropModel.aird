@@ -5,7 +5,7 @@
     <semanticResources>datadropModel.genmodel</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_zvvDYJhKEeurBqp3RM-zrw">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']"/>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_oe7wMJ2-Eeuy1MdB-6D77A" name="Ordered Diagram" repPath="#_oe57AJ2-Eeuy1MdB-6D77A" changeId="d302dc54-01de-4c60-8169-27b40c601b0f">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_oe7wMJ2-Eeuy1MdB-6D77A" name="Ordered Diagram" repPath="#_oe57AJ2-Eeuy1MdB-6D77A" changeId="902b8065-d9a0-4406-8013-913a7f583646">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']"/>
         <target xmi:type="ecore:EPackage" href="datadropModel.ecore#/"/>
       </ownedRepresentationDescriptors>
@@ -597,9 +597,9 @@
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='EC_EReference']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_o4CMtp2-Eeuy1MdB-6D77A" name="[0..*] profile" sourceNode="_o33NkJ2-Eeuy1MdB-6D77A" targetNode="_o31YY52-Eeuy1MdB-6D77A">
-      <target xmi:type="ecore:EReference" href="datadropModel.ecore#//DataDropRepository/profile"/>
-      <semanticElements xmi:type="ecore:EReference" href="datadropModel.ecore#//DataDropRepository/profile"/>
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_o4CMtp2-Eeuy1MdB-6D77A" name="[0..*] profiles" sourceNode="_o33NkJ2-Eeuy1MdB-6D77A" targetNode="_o31YY52-Eeuy1MdB-6D77A">
+      <target xmi:type="ecore:EReference" href="datadropModel.ecore#//DataDropRepository/profiles"/>
+      <semanticElements xmi:type="ecore:EReference" href="datadropModel.ecore#//DataDropRepository/profiles"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_o4CMt52-Eeuy1MdB-6D77A" description="_o3_wcZ2-Eeuy1MdB-6D77A" sourceArrow="FillDiamond" routingStyle="manhattan" strokeColor="0,0,0">
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_o4CMuZ2-Eeuy1MdB-6D77A" showIcon="false">
           <customFeatures>labelSize</customFeatures>

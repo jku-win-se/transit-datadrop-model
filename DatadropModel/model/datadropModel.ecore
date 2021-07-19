@@ -45,7 +45,7 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DataDropRepository" eSuperTypes="#//RepositoryInterface">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="profile" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="profiles" upperBound="-1"
         eType="#//Profile" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Extractor">

@@ -35,7 +35,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link datadropModel.impl.DataDropRepositoryImpl#getRepository_name <em>Repository name</em>}</li>
  *   <li>{@link datadropModel.impl.DataDropRepositoryImpl#getRemote_url <em>Remote url</em>}</li>
  *   <li>{@link datadropModel.impl.DataDropRepositoryImpl#getCredentials <em>Credentials</em>}</li>
- *   <li>{@link datadropModel.impl.DataDropRepositoryImpl#getProfile <em>Profile</em>}</li>
+ *   <li>{@link datadropModel.impl.DataDropRepositoryImpl#getProfiles <em>Profiles</em>}</li>
  * </ul>
  *
  * @generated
@@ -112,14 +112,14 @@ public class DataDropRepositoryImpl extends MinimalEObjectImpl.Container impleme
 	protected Credentials credentials;
 
 	/**
-	 * The cached value of the '{@link #getProfile() <em>Profile</em>}' containment reference list.
+	 * The cached value of the '{@link #getProfiles() <em>Profiles</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getProfile()
+	 * @see #getProfiles()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Profile> profile;
+	protected EList<Profile> profiles;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -261,12 +261,12 @@ public class DataDropRepositoryImpl extends MinimalEObjectImpl.Container impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Profile> getProfile() {
-		if (profile == null) {
-			profile = new EObjectContainmentEList<Profile>(Profile.class, this,
-					DatadropModelPackage.DATA_DROP_REPOSITORY__PROFILE);
+	public EList<Profile> getProfiles() {
+		if (profiles == null) {
+			profiles = new EObjectContainmentEList<Profile>(Profile.class, this,
+					DatadropModelPackage.DATA_DROP_REPOSITORY__PROFILES);
 		}
-		return profile;
+		return profiles;
 	}
 
 	/**
@@ -279,8 +279,8 @@ public class DataDropRepositoryImpl extends MinimalEObjectImpl.Container impleme
 		switch (featureID) {
 		case DatadropModelPackage.DATA_DROP_REPOSITORY__CREDENTIALS:
 			return basicSetCredentials(null, msgs);
-		case DatadropModelPackage.DATA_DROP_REPOSITORY__PROFILE:
-			return ((InternalEList<?>) getProfile()).basicRemove(otherEnd, msgs);
+		case DatadropModelPackage.DATA_DROP_REPOSITORY__PROFILES:
+			return ((InternalEList<?>) getProfiles()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -301,8 +301,8 @@ public class DataDropRepositoryImpl extends MinimalEObjectImpl.Container impleme
 			return getRemote_url();
 		case DatadropModelPackage.DATA_DROP_REPOSITORY__CREDENTIALS:
 			return getCredentials();
-		case DatadropModelPackage.DATA_DROP_REPOSITORY__PROFILE:
-			return getProfile();
+		case DatadropModelPackage.DATA_DROP_REPOSITORY__PROFILES:
+			return getProfiles();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -328,9 +328,9 @@ public class DataDropRepositoryImpl extends MinimalEObjectImpl.Container impleme
 		case DatadropModelPackage.DATA_DROP_REPOSITORY__CREDENTIALS:
 			setCredentials((Credentials) newValue);
 			return;
-		case DatadropModelPackage.DATA_DROP_REPOSITORY__PROFILE:
-			getProfile().clear();
-			getProfile().addAll((Collection<? extends Profile>) newValue);
+		case DatadropModelPackage.DATA_DROP_REPOSITORY__PROFILES:
+			getProfiles().clear();
+			getProfiles().addAll((Collection<? extends Profile>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -356,8 +356,8 @@ public class DataDropRepositoryImpl extends MinimalEObjectImpl.Container impleme
 		case DatadropModelPackage.DATA_DROP_REPOSITORY__CREDENTIALS:
 			setCredentials((Credentials) null);
 			return;
-		case DatadropModelPackage.DATA_DROP_REPOSITORY__PROFILE:
-			getProfile().clear();
+		case DatadropModelPackage.DATA_DROP_REPOSITORY__PROFILES:
+			getProfiles().clear();
 			return;
 		}
 		super.eUnset(featureID);
@@ -381,8 +381,8 @@ public class DataDropRepositoryImpl extends MinimalEObjectImpl.Container impleme
 			return REMOTE_URL_EDEFAULT == null ? remote_url != null : !REMOTE_URL_EDEFAULT.equals(remote_url);
 		case DatadropModelPackage.DATA_DROP_REPOSITORY__CREDENTIALS:
 			return credentials != null;
-		case DatadropModelPackage.DATA_DROP_REPOSITORY__PROFILE:
-			return profile != null && !profile.isEmpty();
+		case DatadropModelPackage.DATA_DROP_REPOSITORY__PROFILES:
+			return profiles != null && !profiles.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

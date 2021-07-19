@@ -59,7 +59,7 @@ public class DataDropRepositoryItemProvider extends ItemProviderAdapter implemen
 			addRepository_namePropertyDescriptor(object);
 			addRemote_urlPropertyDescriptor(object);
 			addCredentialsPropertyDescriptor(object);
-			addProfilePropertyDescriptor(object);
+			addProfilesPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -128,18 +128,18 @@ public class DataDropRepositoryItemProvider extends ItemProviderAdapter implemen
 	}
 
 	/**
-	 * This adds a property descriptor for the Profile feature.
+	 * This adds a property descriptor for the Profiles feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addProfilePropertyDescriptor(Object object) {
+	protected void addProfilesPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
 				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
-				getString("_UI_DataDropRepository_profile_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_DataDropRepository_profile_feature",
+				getString("_UI_DataDropRepository_profiles_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_DataDropRepository_profiles_feature",
 						"_UI_DataDropRepository_type"),
-				DatadropModelPackage.Literals.DATA_DROP_REPOSITORY__PROFILE, true, false, true, null, null, null));
+				DatadropModelPackage.Literals.DATA_DROP_REPOSITORY__PROFILES, true, false, true, null, null, null));
 	}
 
 	/**
@@ -155,7 +155,7 @@ public class DataDropRepositoryItemProvider extends ItemProviderAdapter implemen
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(DatadropModelPackage.Literals.REPOSITORY_INTERFACE__CREDENTIALS);
-			childrenFeatures.add(DatadropModelPackage.Literals.DATA_DROP_REPOSITORY__PROFILE);
+			childrenFeatures.add(DatadropModelPackage.Literals.DATA_DROP_REPOSITORY__PROFILES);
 		}
 		return childrenFeatures;
 	}
@@ -225,7 +225,7 @@ public class DataDropRepositoryItemProvider extends ItemProviderAdapter implemen
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		case DatadropModelPackage.DATA_DROP_REPOSITORY__CREDENTIALS:
-		case DatadropModelPackage.DATA_DROP_REPOSITORY__PROFILE:
+		case DatadropModelPackage.DATA_DROP_REPOSITORY__PROFILES:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -246,7 +246,7 @@ public class DataDropRepositoryItemProvider extends ItemProviderAdapter implemen
 		newChildDescriptors.add(createChildParameter(DatadropModelPackage.Literals.REPOSITORY_INTERFACE__CREDENTIALS,
 				DatadropModelFactory.eINSTANCE.createCredentials()));
 
-		newChildDescriptors.add(createChildParameter(DatadropModelPackage.Literals.DATA_DROP_REPOSITORY__PROFILE,
+		newChildDescriptors.add(createChildParameter(DatadropModelPackage.Literals.DATA_DROP_REPOSITORY__PROFILES,
 				DatadropModelFactory.eINSTANCE.createProfile()));
 	}
 

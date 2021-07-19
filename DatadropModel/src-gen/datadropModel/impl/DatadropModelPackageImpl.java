@@ -412,7 +412,7 @@ public class DatadropModelPackageImpl extends EPackageImpl implements DatadropMo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getDataDropRepository_Profile() {
+	public EReference getDataDropRepository_Profiles() {
 		return (EReference) dataDropRepositoryEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -507,7 +507,7 @@ public class DatadropModelPackageImpl extends EPackageImpl implements DatadropMo
 		createEReference(repositoryInterfaceEClass, REPOSITORY_INTERFACE__CREDENTIALS);
 
 		dataDropRepositoryEClass = createEClass(DATA_DROP_REPOSITORY);
-		createEReference(dataDropRepositoryEClass, DATA_DROP_REPOSITORY__PROFILE);
+		createEReference(dataDropRepositoryEClass, DATA_DROP_REPOSITORY__PROFILES);
 
 		extractorEClass = createEClass(EXTRACTOR);
 		createEAttribute(extractorEClass, EXTRACTOR__ID);
@@ -618,7 +618,7 @@ public class DatadropModelPackageImpl extends EPackageImpl implements DatadropMo
 
 		initEClass(dataDropRepositoryEClass, DataDropRepository.class, "DataDropRepository", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getDataDropRepository_Profile(), this.getProfile(), null, "profile", null, 0, -1,
+		initEReference(getDataDropRepository_Profiles(), this.getProfile(), null, "profiles", null, 0, -1,
 				DataDropRepository.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

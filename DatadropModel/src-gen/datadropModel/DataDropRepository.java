@@ -13,7 +13,7 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link datadropModel.DataDropRepository#getProfile <em>Profile</em>}</li>
+ *   <li>{@link datadropModel.DataDropRepository#getProfiles <em>Profiles</em>}</li>
  * </ul>
  *
  * @see datadropModel.DatadropModelPackage#getDataDropRepository()
@@ -22,15 +22,15 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface DataDropRepository extends RepositoryInterface {
 	/**
-	 * Returns the value of the '<em><b>Profile</b></em>' containment reference list.
+	 * Returns the value of the '<em><b>Profiles</b></em>' containment reference list.
 	 * The list contents are of type {@link datadropModel.Profile}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Profile</em>' containment reference list.
-	 * @see datadropModel.DatadropModelPackage#getDataDropRepository_Profile()
+	 * @return the value of the '<em>Profiles</em>' containment reference list.
+	 * @see datadropModel.DatadropModelPackage#getDataDropRepository_Profiles()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<Profile> getProfile();
+	EList<Profile> getProfiles();
 
 } // DataDropRepository

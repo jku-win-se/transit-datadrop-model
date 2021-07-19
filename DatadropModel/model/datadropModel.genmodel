@@ -44,7 +44,7 @@
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference datadropModel.ecore#//RepositoryInterface/credentials"/>
     </genClasses>
     <genClasses ecoreClass="datadropModel.ecore#//DataDropRepository">
-      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference datadropModel.ecore#//DataDropRepository/profile"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference datadropModel.ecore#//DataDropRepository/profiles"/>
     </genClasses>
     <genClasses ecoreClass="datadropModel.ecore#//Extractor">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute datadropModel.ecore#//Extractor/id"/>

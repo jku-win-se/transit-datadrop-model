@@ -495,7 +495,7 @@ public class EditorView {
 			// iterate over profiles
 
 			// get current profiles
-			var profiles = rootNode.findValue("profile");
+			var profiles = rootNode.findValue("profiles");
 			for (JsonNode profileNode : profiles) {
 
 				List<JsonNode> refListNode = profileNode.findValues("$ref");
@@ -534,12 +534,18 @@ public class EditorView {
 
 				// add the new nodes
 				var arrayNode = objectMapper.convertValue(newNodes, ArrayNode.class);
-				((ObjectNode) profileNode).putArray(MANDATORY_FILES_JSON_ID).add(arrayNode);
-
-				// save the new JSON object
-				var file = new File(fileName);
-				objectMapper.writeValue(file, rootNode);
+				((ObjectNode) profileNode).set(MANDATORY_FILES_JSON_ID, arrayNode);
 			}
+
+			// delete eClass nodes
+			List<JsonNode> eClassParentList = rootNode.findParents("eClass");
+			for (JsonNode eClassNode : eClassParentList) {
+				((ObjectNode) eClassNode).remove("eClass");
+			}
+
+			// save the new JSON object
+			var file = new File(fileName);
+			objectMapper.writeValue(file, rootNode);
 		}
 
 	}

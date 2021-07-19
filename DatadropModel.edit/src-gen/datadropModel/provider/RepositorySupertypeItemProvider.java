@@ -66,7 +66,7 @@ public class RepositorySupertypeItemProvider extends RepositoryItemProvider {
 				getString("_UI_DataDropRepository_profile_feature"),
 				getString("_UI_PropertyDescriptor_description", "_UI_DataDropRepository_profile_feature",
 						"_UI_DataDropRepository_type"),
-				DatadropModelPackage.Literals.DATA_DROP_REPOSITORY__PROFILE, true, false, true, null, null, null));
+				DatadropModelPackage.Literals.DATA_DROP_REPOSITORY__PROFILES, true, false, true, null, null, null));
 	}
 
 	/**
@@ -144,7 +144,7 @@ public class RepositorySupertypeItemProvider extends RepositoryItemProvider {
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(DatadropModelPackage.Literals.DATA_DROP_REPOSITORY__PROFILE);
+			childrenFeatures.add(DatadropModelPackage.Literals.DATA_DROP_REPOSITORY__PROFILES);
 		}
 		return childrenFeatures;
 	}
@@ -228,7 +228,7 @@ public class RepositorySupertypeItemProvider extends RepositoryItemProvider {
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(DatadropModelPackage.Literals.DATA_DROP_REPOSITORY__PROFILE,
+		newChildDescriptors.add(createChildParameter(DatadropModelPackage.Literals.DATA_DROP_REPOSITORY__PROFILES,
 				DatadropModelFactory.eINSTANCE.createProfile()));
 	}
 

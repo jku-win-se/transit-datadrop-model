@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<org.eclipse.emf.ecp.view.model:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:org.eclipse.emf.ecp.view.model="http://org/eclipse/emf/ecp/view/model/1180" xmi:id="_Z_IskLL4EeuXbbXC0WLg8g" name="Repository">
+<org.eclipse.emf.ecp.view.model:View xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:org.eclipse.emf.ecp.view.model="http://org/eclipse/emf/ecp/view/model/1180" xmi:id="_E8GpYOYWEeuIA5BUwbkdgQ" name="Repository">
   <rootEClass href="http://www.example.org/datadropModel#//Repository"/>
-  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_Z_M-ALL4EeuXbbXC0WLg8g" name="Control repository_id">
-    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_Z_M-AbL4EeuXbbXC0WLg8g">
+  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_E8H3gOYWEeuIA5BUwbkdgQ" name="Control repository_id">
+    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_E8IekOYWEeuIA5BUwbkdgQ">
       <domainModelEFeature xsi:type="ecore:EAttribute" href="http://www.example.org/datadropModel#//RepositoryInterface/repository_id"/>
     </domainModelReference>
   </children>
-  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_Z_M-ArL4EeuXbbXC0WLg8g" name="Control repository_name">
-    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_Z_M-A7L4EeuXbbXC0WLg8g">
+  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_E8IekeYWEeuIA5BUwbkdgQ" name="Control repository_name">
+    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_E8IekuYWEeuIA5BUwbkdgQ">
       <domainModelEFeature xsi:type="ecore:EAttribute" href="http://www.example.org/datadropModel#//RepositoryInterface/repository_name"/>
     </domainModelReference>
   </children>
-  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_Z_M-BLL4EeuXbbXC0WLg8g" name="Control remote_url">
-    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_Z_M-BbL4EeuXbbXC0WLg8g">
+  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_E8Iek-YWEeuIA5BUwbkdgQ" name="Control remote_url">
+    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_E8IelOYWEeuIA5BUwbkdgQ">
       <domainModelEFeature xsi:type="ecore:EAttribute" href="http://www.example.org/datadropModel#//RepositoryInterface/remote_url"/>
     </domainModelReference>
   </children>
-  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_Z_M-BrL4EeuXbbXC0WLg8g" name="Control credentials">
-    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_Z_M-B7L4EeuXbbXC0WLg8g">
+  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_E8IeleYWEeuIA5BUwbkdgQ" name="Control credentials">
+    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_E8IeluYWEeuIA5BUwbkdgQ">
       <domainModelEFeature xsi:type="ecore:EReference" href="http://www.example.org/datadropModel#//RepositoryInterface/credentials"/>
     </domainModelReference>
   </children>
-  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_Z_M-CLL4EeuXbbXC0WLg8g" name="Control artifact">
-    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_Z_M-CbL4EeuXbbXC0WLg8g">
+  <children xsi:type="org.eclipse.emf.ecp.view.model:Control" xmi:id="_E8Iel-YWEeuIA5BUwbkdgQ" name="Control artifact">
+    <domainModelReference xsi:type="org.eclipse.emf.ecp.view.model:FeaturePathDomainModelReference" xmi:id="_E8IemOYWEeuIA5BUwbkdgQ">
       <domainModelEFeature xsi:type="ecore:EReference" href="http://www.example.org/datadropModel#//Repository/artifact"/>
     </domainModelReference>
   </children>

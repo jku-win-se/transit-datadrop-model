@@ -561,7 +561,7 @@ public class DatadropModelPackageImpl extends EPackageImpl implements DatadropMo
 
 		initEClass(repositoryEClass, Repository.class, "Repository", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getRepository_Artifact(), this.getArtifact(), null, "artifact", null, 0, -1, Repository.class,
+		initEReference(getRepository_Artifact(), this.getArtifact(), null, "artifact", null, 0, 1, Repository.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

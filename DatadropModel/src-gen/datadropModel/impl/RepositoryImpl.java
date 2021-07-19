@@ -6,22 +6,13 @@ import datadropModel.Artifact;
 import datadropModel.Credentials;
 import datadropModel.DatadropModelPackage;
 import datadropModel.Repository;
-
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -112,14 +103,14 @@ public class RepositoryImpl extends MinimalEObjectImpl.Container implements Repo
 	protected Credentials credentials;
 
 	/**
-	 * The cached value of the '{@link #getArtifact() <em>Artifact</em>}' containment reference list.
+	 * The cached value of the '{@link #getArtifact() <em>Artifact</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getArtifact()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Artifact> artifact;
+	protected Artifact artifact;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -261,12 +252,49 @@ public class RepositoryImpl extends MinimalEObjectImpl.Container implements Repo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Artifact> getArtifact() {
-		if (artifact == null) {
-			artifact = new EObjectContainmentEList<Artifact>(Artifact.class, this,
-					DatadropModelPackage.REPOSITORY__ARTIFACT);
-		}
+	public Artifact getArtifact() {
 		return artifact;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetArtifact(Artifact newArtifact, NotificationChain msgs) {
+		Artifact oldArtifact = artifact;
+		artifact = newArtifact;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					DatadropModelPackage.REPOSITORY__ARTIFACT, oldArtifact, newArtifact);
+			if (msgs == null)
+				msgs = notification;
+			else
+				msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setArtifact(Artifact newArtifact) {
+		if (newArtifact != artifact) {
+			NotificationChain msgs = null;
+			if (artifact != null)
+				msgs = ((InternalEObject) artifact).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE - DatadropModelPackage.REPOSITORY__ARTIFACT, null, msgs);
+			if (newArtifact != null)
+				msgs = ((InternalEObject) newArtifact).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE - DatadropModelPackage.REPOSITORY__ARTIFACT, null, msgs);
+			msgs = basicSetArtifact(newArtifact, msgs);
+			if (msgs != null)
+				msgs.dispatch();
+		} else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DatadropModelPackage.REPOSITORY__ARTIFACT,
+					newArtifact, newArtifact));
 	}
 
 	/**
@@ -280,7 +308,7 @@ public class RepositoryImpl extends MinimalEObjectImpl.Container implements Repo
 		case DatadropModelPackage.REPOSITORY__CREDENTIALS:
 			return basicSetCredentials(null, msgs);
 		case DatadropModelPackage.REPOSITORY__ARTIFACT:
-			return ((InternalEList<?>) getArtifact()).basicRemove(otherEnd, msgs);
+			return basicSetArtifact(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -329,8 +357,7 @@ public class RepositoryImpl extends MinimalEObjectImpl.Container implements Repo
 			setCredentials((Credentials) newValue);
 			return;
 		case DatadropModelPackage.REPOSITORY__ARTIFACT:
-			getArtifact().clear();
-			getArtifact().addAll((Collection<? extends Artifact>) newValue);
+			setArtifact((Artifact) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -357,7 +384,7 @@ public class RepositoryImpl extends MinimalEObjectImpl.Container implements Repo
 			setCredentials((Credentials) null);
 			return;
 		case DatadropModelPackage.REPOSITORY__ARTIFACT:
-			getArtifact().clear();
+			setArtifact((Artifact) null);
 			return;
 		}
 		super.eUnset(featureID);
@@ -382,7 +409,7 @@ public class RepositoryImpl extends MinimalEObjectImpl.Container implements Repo
 		case DatadropModelPackage.REPOSITORY__CREDENTIALS:
 			return credentials != null;
 		case DatadropModelPackage.REPOSITORY__ARTIFACT:
-			return artifact != null && !artifact.isEmpty();
+			return artifact != null;
 		}
 		return super.eIsSet(featureID);
 	}

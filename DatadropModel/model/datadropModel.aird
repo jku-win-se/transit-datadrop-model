@@ -5,7 +5,7 @@
     <semanticResources>datadropModel.genmodel</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_zvvDYJhKEeurBqp3RM-zrw">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']"/>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_oe7wMJ2-Eeuy1MdB-6D77A" name="Ordered Diagram" repPath="#_oe57AJ2-Eeuy1MdB-6D77A" changeId="e929ec77-b3ee-493b-90bc-468d146c5e87">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_oe7wMJ2-Eeuy1MdB-6D77A" name="Ordered Diagram" repPath="#_oe57AJ2-Eeuy1MdB-6D77A" changeId="d302dc54-01de-4c60-8169-27b40c601b0f">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']"/>
         <target xmi:type="ecore:EPackage" href="datadropModel.ecore#/"/>
       </ownedRepresentationDescriptors>
@@ -84,6 +84,10 @@
             <children xmi:type="notation:Node" xmi:id="_o4HFNp2-Eeuy1MdB-6D77A" type="3010" element="_o39UM52-Eeuy1MdB-6D77A">
               <styles xmi:type="notation:FontStyle" xmi:id="_o4HFN52-Eeuy1MdB-6D77A" fontName="Segoe UI" fontHeight="8"/>
               <layoutConstraint xmi:type="notation:Location" xmi:id="_o4HFOJ2-Eeuy1MdB-6D77A"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_FBqYcOYOEeuIA5BUwbkdgQ" type="3010" element="_FBTzIeYOEeuIA5BUwbkdgQ">
+              <styles xmi:type="notation:FontStyle" xmi:id="_FBqYceYOEeuIA5BUwbkdgQ" fontName="Segoe UI" fontHeight="8"/>
+              <layoutConstraint xmi:type="notation:Location" xmi:id="_FBqYcuYOEeuIA5BUwbkdgQ"/>
             </children>
             <styles xmi:type="notation:SortingStyle" xmi:id="_o4Eo_J2-Eeuy1MdB-6D77A"/>
             <styles xmi:type="notation:FilteringStyle" xmi:id="_o4Eo_Z2-Eeuy1MdB-6D77A"/>
@@ -428,6 +432,14 @@
         </ownedStyle>
         <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EAttribute']"/>
       </ownedElements>
+      <ownedElements xmi:type="diagram:DNodeListElement" uid="_FBTzIeYOEeuIA5BUwbkdgQ" name=" extractor : Extractor" tooltipText="">
+        <target xmi:type="ecore:EReference" href="datadropModel.ecore#//File/extractor"/>
+        <semanticElements xmi:type="ecore:EReference" href="datadropModel.ecore#//File/extractor"/>
+        <ownedStyle xmi:type="diagram:BundledImage" uid="_FBVoUOYOEeuIA5BUwbkdgQ" labelAlignment="LEFT" color="114,159,207">
+          <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EReferenceNode']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EReferenceNode']"/>
+      </ownedElements>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DNodeList" uid="_o31YYJ2-Eeuy1MdB-6D77A" name="Credentials" tooltipText="" incomingEdges="_o4A-k52-Eeuy1MdB-6D77A" width="12" height="10">
       <target xmi:type="ecore:EClass" href="datadropModel.ecore#//Credentials"/>
@@ -550,7 +562,7 @@
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@edgeMappings[name='EC_EReference']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_o4A-mp2-Eeuy1MdB-6D77A" name="[0..*] artifact" sourceNode="_o3zjMp2-Eeuy1MdB-6D77A" targetNode="_o30KQp2-Eeuy1MdB-6D77A">
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_o4A-mp2-Eeuy1MdB-6D77A" name="[0..1] artifact" sourceNode="_o3zjMp2-Eeuy1MdB-6D77A" targetNode="_o30KQp2-Eeuy1MdB-6D77A">
       <target xmi:type="ecore:EReference" href="datadropModel.ecore#//Repository/artifact"/>
       <semanticElements xmi:type="ecore:EReference" href="datadropModel.ecore#//Repository/artifact"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_o4BloJ2-Eeuy1MdB-6D77A" description="_o3_wcZ2-Eeuy1MdB-6D77A" sourceArrow="FillDiamond" routingStyle="manhattan" strokeColor="0,0,0">

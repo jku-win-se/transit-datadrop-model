@@ -4,6 +4,8 @@
     
     
     <extension point="org.eclipse.emf.ecp.view.model.provider.xmi.file">
+<file filePath="viewmodels/Repository.view"/>
+
 <file filePath="viewmodels/Extractor.view"/>
 
 <file filePath="viewmodels/DataDropRepository.view"/>

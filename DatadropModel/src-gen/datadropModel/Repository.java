@@ -2,8 +2,6 @@
  */
 package datadropModel;
 
-import org.eclipse.emf.common.util.EList;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Repository</b></em>'.
@@ -22,15 +20,25 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface Repository extends RepositoryInterface {
 	/**
-	 * Returns the value of the '<em><b>Artifact</b></em>' containment reference list.
-	 * The list contents are of type {@link datadropModel.Artifact}.
+	 * Returns the value of the '<em><b>Artifact</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Artifact</em>' containment reference list.
+	 * @return the value of the '<em>Artifact</em>' containment reference.
+	 * @see #setArtifact(Artifact)
 	 * @see datadropModel.DatadropModelPackage#getRepository_Artifact()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<Artifact> getArtifact();
+	Artifact getArtifact();
+
+	/**
+	 * Sets the value of the '{@link datadropModel.Repository#getArtifact <em>Artifact</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Artifact</em>' containment reference.
+	 * @see #getArtifact()
+	 * @generated
+	 */
+	void setArtifact(Artifact value);
 
 } // Repository

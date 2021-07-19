@@ -231,7 +231,7 @@ public interface DatadropModelPackage extends EPackage {
 	int REPOSITORY__CREDENTIALS = REPOSITORY_INTERFACE__CREDENTIALS;
 
 	/**
-	 * The feature id for the '<em><b>Artifact</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Artifact</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -652,10 +652,10 @@ public interface DatadropModelPackage extends EPackage {
 	EClass getRepository();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link datadropModel.Repository#getArtifact <em>Artifact</em>}'.
+	 * Returns the meta object for the containment reference '{@link datadropModel.Repository#getArtifact <em>Artifact</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Artifact</em>'.
+	 * @return the meta object for the containment reference '<em>Artifact</em>'.
 	 * @see datadropModel.Repository#getArtifact()
 	 * @see #getRepository()
 	 * @generated
@@ -1006,7 +1006,7 @@ public interface DatadropModelPackage extends EPackage {
 		EClass REPOSITORY = eINSTANCE.getRepository();
 
 		/**
-		 * The meta object literal for the '<em><b>Artifact</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Artifact</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

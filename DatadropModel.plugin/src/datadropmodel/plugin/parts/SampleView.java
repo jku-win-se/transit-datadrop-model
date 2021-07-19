@@ -330,8 +330,8 @@ public class SampleView {
 					tempShell.getDisplay().sleep();
 				}
 			}
-			
-			if (!tempShell.getDisplay().isDisposed()) {				
+
+			if (!tempShell.getDisplay().isDisposed()) {
 				tempShell.getDisplay().dispose();
 			}
 		});
@@ -561,15 +561,25 @@ public class SampleView {
 			// it is the root node, just go one iteration further
 			navigateToJsonNode(rootNode, refAsString.substring(1), false);
 		} else {
-			var key = currRef.substring(1, currRef.indexOf(".")); // @repositories.0 -----> repositories
-			var idx = Integer.parseInt(currRef.substring(currRef.indexOf(".") + 1)); // @repositories.0 -----> 0
 
-			// go to next node
-			rootNode = rootNode.get(key).get(idx);
+			String key;
+			int idx;
+
+			if (currRef.equals("@artifact")) {
+				// there is only one artifact
+				key = currRef.substring(1);
+				rootNode = rootNode.get(key);
+			} else {
+				key = currRef.substring(1, currRef.indexOf(".")); // @repositories.0 -----> repositories
+				idx = Integer.parseInt(currRef.substring(currRef.indexOf(".") + 1)); // @repositories.0
+																						// -----> 0
+				// go to next node
+				rootNode = rootNode.get(key).get(idx);
+			}
 
 			// check if current node yields data
 			if (key.equals("files")) {
-				// set filename and extension - return afterwards 
+				// set filename and extension - return afterwards
 				if (rootNode.get("name") != null) {
 					mandatoryFile.setFile(rootNode.get("name").textValue());
 				}
@@ -586,6 +596,7 @@ public class SampleView {
 				}
 				LOGGER.info("type={}", mandatoryFile.getType());
 			}
+
 			navigateToJsonNode(rootNode, refAsString.substring(refAsString.indexOf("/", 1)), false);
 		}
 	}

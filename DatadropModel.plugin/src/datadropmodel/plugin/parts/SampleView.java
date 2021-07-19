@@ -550,7 +550,7 @@ public class SampleView {
 	 * 
 	 * @param rootNode    the current JsonNode root object
 	 * @param refAsString the reference string, e.g.
-	 *                    <code>//@repositories.0/@artifact.0/@files.2</code>
+	 *                    <code>//@repositories.0/@artifact/@files.2</code>
 	 * @param isFirst     a boolean indicating if this is the initial root object /
 	 *                    indicating if this is the first iteration
 	 */
@@ -567,12 +567,11 @@ public class SampleView {
 
 			if (currRef.equals("@artifact")) {
 				// there is only one artifact
-				key = currRef.substring(1);
+				key = currRef.substring(1); // @artifact -----> artifact
 				rootNode = rootNode.get(key);
 			} else {
 				key = currRef.substring(1, currRef.indexOf(".")); // @repositories.0 -----> repositories
-				idx = Integer.parseInt(currRef.substring(currRef.indexOf(".") + 1)); // @repositories.0
-																						// -----> 0
+				idx = Integer.parseInt(currRef.substring(currRef.indexOf(".") + 1)); // @repositories.0 -----> 0
 				// go to next node
 				rootNode = rootNode.get(key).get(idx);
 			}

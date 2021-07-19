@@ -3,6 +3,13 @@
 
 <product name="at.jku.se.datadrop.editor.product" id="at.jku.se.datadrop.editor.product.product" application="org.eclipse.e4.ui.workbench.swt.E4Application" version="1.0.0.qualifier" useFeatures="false" includeLaunchers="true">
 
+   <aboutInfo>
+      <image path="/at.jku.se.datadrop.editor.product/branding/k-128.png"/>
+      <text>
+         Editor created as part of the TransIT project. Documentation can be found here: https://github.com/jku-win-se/transit-datadrop-model
+      </text>
+   </aboutInfo>
+
    <configIni use="default">
    </configIni>
 
@@ -13,13 +20,15 @@
       </vmArgsMac>
    </launcherArgs>
 
-   <windowImages/>
+   <windowImages i16="/at.jku.se.datadrop.editor.product/branding/k-16.png" i32="/at.jku.se.datadrop.editor.product/branding/k-32.png" i64="/at.jku.se.datadrop.editor.product/branding/k-64.png" i128="/at.jku.se.datadrop.editor.product/branding/k-128.png"/>
+
 
    <launcher>
       <win useIco="false">
          <bmp/>
       </win>
    </launcher>
+
 
    <vm>
    </vm>

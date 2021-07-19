@@ -12,6 +12,18 @@
                name="appName"
                value="at.jku.se.datadrop.editor.product">
          </property>
+         <property
+               name="windowImages"
+               value="branding/k-16.png,branding/k-32.png,branding/k-64.png,branding/k-128.png">
+         </property>
+         <property
+               name="aboutImage"
+               value="branding/k-128.png">
+         </property>
+         <property
+               name="aboutText"
+               value="Editor created as part of the TransIT project. Documentation can be found here: https://github.com/jku-win-se/transit-datadrop-model">
+         </property>
       </product>
    </extension>
 

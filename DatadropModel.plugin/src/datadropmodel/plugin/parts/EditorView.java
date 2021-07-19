@@ -54,13 +54,13 @@ import datadropModel.DatadropModelPackage;
  * @author Marco
  *
  */
-public class SampleView {
+public class EditorView {
 
 	private static final String FILE_STRING_ID = "file";
 	private static final String MANDATORY_FILES_JSON_ID = "mandatory_files";
 	private static final String EXTENSION_STRING_ID = "extension";
 	private static final String TYPE_STRING_ID = "type";
-	private static final Logger LOGGER = LoggerFactory.getLogger(SampleView.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(EditorView.class);
 	private static final String OUTPUT_DIR_STRING_PREFIX = "Output directory: ";
 	private static final String NO_OUTPUT_DIR_STRING = OUTPUT_DIR_STRING_PREFIX + "No directory specified!";
 	private static final GridData GD_FILLED = new GridData(SWT.FILL, SWT.FILL, true, true);
@@ -331,7 +331,7 @@ public class SampleView {
 				}
 			}
 
-			if (!tempShell.getDisplay().isDisposed()) {
+			if (!tempShell.isDisposed() && !tempShell.getDisplay().isDisposed()) {
 				tempShell.getDisplay().dispose();
 			}
 		});

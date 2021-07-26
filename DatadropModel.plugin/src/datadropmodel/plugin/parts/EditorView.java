@@ -38,6 +38,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.emfjson.jackson.resource.JsonResourceFactory;
 import org.slf4j.Logger;
@@ -260,12 +261,25 @@ public class EditorView {
 		backButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				backToMainMenu();
+
+				var messageBox = new MessageBox(content.getShell(), SWT.ICON_QUESTION | SWT.YES | SWT.NO);
+				messageBox.setMessage(
+						"""
+								Do you really want to go back?
+
+								Unsaved changes will be lost. To save your current config, export the setup to a xmi file to be able to import it later again!
+								""");
+				messageBox.setText("Exiting Editor");
+				int response = messageBox.open();
+				if (response == SWT.YES) {
+					backToMainMenu();
+				}
 			}
 		});
 
 		// refresh window
 		content.layout(true, true);
+
 	}
 
 	/***

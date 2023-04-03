@@ -1,4 +1,4 @@
-# transit-datadrop-model
+# TransIT Config-Editor
 
 ## Project Setup
 
